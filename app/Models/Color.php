@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Color extends Model
+{
+    /** @use HasFactory<\Database\Factories\ColorFactory> */
+    use HasFactory;
+    protected $fillable = [
+        "ColorName", 
+        "ColorCategoryID"
+        
+    ];
+
+    public function Products():belongsToMany{
+        return $this->belongsToMany(Product::class);
+
+    }
+
+    public function ColorCategory():belongsTo{
+        return $this->belongsTo(ColorCategory::class);
+    }
+
+
+
+}
