@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_orders', function (Blueprint $table) {
             $table->id();
-            $table->int('Quantity');
-            $table->int('TotalPrice');
+            $table->integer('Quantity');
+            $table->integer('TotalPrice');
             $table->timestamps();
         });
     }

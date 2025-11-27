@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('StockDate');
             $table->foreignId('UserID')->constrained()->onDelete('cascade');
             $table->foreignId('SupplierID')->constrained()->onDelete('cascade');
-            $table->int('StockQuantity');
+            $table->integer('StockQuantity');
             $table->timestamps();
         });
     }

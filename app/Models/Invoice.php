@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
@@ -22,7 +23,7 @@ class Invoice extends Model
         
     ];
 
-    public function DetailOrder():belongsto{
+    public function DetailOrder():BelongsTo{
         return $this->belongsTo(DetailOrder::class);
     }
 

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('ProductName');
             $table->foreignId('BrandID')->constrained()->onDelete('cascade');
-            $table->int('Price');
-            $table->int('ProductQuantity');
+            $table->integer('Price');
+            $table->integer('ProductQuantity');
             $table->string('Image');
             $table->foreignId('ProductTypeID')->constrained()->onDelete('cascade');
             $table->foreignId('ProductCategioryID')->constrained()->onDelete('cascade');

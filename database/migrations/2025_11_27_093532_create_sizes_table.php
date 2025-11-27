@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->int('SizeValue');
+            $table->integer('SizeValue');
             $table->foreignId('CategoryID')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
