@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Database\Seeders\UserSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -21,33 +25,33 @@ class Product extends Model
         
     ];
 
-    public function Brand():belongsTo{
+    public function Brand():BelongsTo{
         return $this->belongsTo(Brand::class);
     }
 
-    public function ProductCategory():belongsTo{
+    public function ProductCategory():BelongsTo{
         return $this->belongsTo(ProductCategory::class);
     }
-    public function DetailOrders():belongsToMany{
+    public function DetailOrders():BelongsToMany{
         return $this->belongsToMany(DetailOrder::class);
     }
     public function Colors():belongsToMany{
         return $this->belongsToMany(Color::class);
     }
 
-    public function Sizes():belongsToMany{
+    public function Sizes():BelongsToMany{
         return $this->belongsToMany(Size::class);
     }
 
-    public function Users():belongsToMany{
-        return $this->belongstoMany(Users::class);
+    public function Users():BelongsToMany{
+        return $this->belongsToMany(User::class);
     }
 
-    public function StockHistory():hasMany{
+    public function StockHistory():HasMany{
         return $this->hasMany(StockHistory::class);
     }
 
-    public function ProductType():belongsTo{
+    public function ProductType():BelongsTo{
         return $this->belongsTo(ProductType::class);
     }
 

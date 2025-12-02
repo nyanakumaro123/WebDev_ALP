@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Color extends Model
 {
@@ -15,12 +17,12 @@ class Color extends Model
         
     ];
 
-    public function Products():belongsToMany{
+    public function Products():BelongsToMany{
         return $this->belongsToMany(Product::class);
 
     }
 
-    public function ColorCategory():belongsTo{
+    public function ColorCategory():BelongsTo{
         return $this->belongsTo(ColorCategory::class);
     }
 

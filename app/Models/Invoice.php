@@ -27,11 +27,11 @@ class Invoice extends Model
         return $this->belongsTo(DetailOrder::class);
     }
 
-    public function User():belongsto{
+    public function User():BelongsTo{
         return $this->belongsTo(User::class);
     }
 
-    public function Payment():belongsto{
+    public function Payment():BelongsTo{
         return $this->belongsTo(Payment::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SizeCategory extends Model
 {
@@ -14,7 +15,7 @@ class SizeCategory extends Model
         
     ];
 
-    public function Sizes():hasMany{
+    public function Sizes():HasMany{
         return $this->hasMany(Size::class);
     }
 }
