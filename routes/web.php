@@ -19,9 +19,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    Route::get('/product-category-view', [ProductCategoryController::class, 'createView'])->name('product.category.create.view');
-    Route::get('/product-category-update', [ProductCategoryController::class, 'updateView'])->name('product.category.update.view');
-    Route::post('/product-category-update', [ProductCategoryController::class, 'update'])->name('product.category.update');
+    Route::get('/product-category-list-view', [ProductCategoryController::class, 'productCategoryListView'])->name('product.category.list.view');
+    Route::get('/product-category-create-view', [ProductCategoryController::class, 'createView'])->name('product.category.create.view');
+    Route::post('/product-category-create', [ProductCategoryController::class, 'create'])->name('create.product.category');
+    Route::get('/product-category-update-view/{id}', [ProductCategoryController::class, 'updateView'])->name('product.category.update.view');
+    Route::put('/product-category-update/{id}', [ProductCategoryController::class, 'update'])->name('update.product.category');
+    Route::delete('/product-category-delete/{id}', [ProductCategoryController::class, 'delete'])->name('delete.product.category');
 
 });
 

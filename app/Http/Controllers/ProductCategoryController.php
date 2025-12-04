@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
 {
-    public function createView(){
+    public function productCategoryListView(){
+        return view('admin.listProductCategory');
+    }
+
+    public function createFormView(){
         return view('admin.createProductCategory');
     }
 
-    public function updateView(){
+    public function updateFormView(){
         return view('admin.updateProductCategory');
     }
 
@@ -24,23 +28,23 @@ class ProductCategoryController extends Controller
             'ProductCategoryName' => $request->ProductCategoryName
         ]);
 
-        return redirect()->route('product.category.view');
+        return redirect()->route('product.category.list.view');
     }
     
-    public function update(Request $request, int $id){
-        $request->validate([
-            'ProductCategoryName'=>'required|string|max:50',
-        ]);
+    // public function update(Request $request, int $id){
+    //     $request->validate([
+    //         'ProductCategoryName'=>'required|string|max:50',
+    //     ]);
 
-        ProductCategory::create([
-            'ProductCategoryName' => $request->ProductCategoryName
-        ]);
+    //     ProductCategory::update([
+    //         'ProductCategoryName' => $request->ProductCategoryName
+    //     ]);
 
-        return redirect()->route('product.category.view');
-    }
+    //     return redirect()->route('product.category.list.view');
+    // }
 
-    public function delete(int $id){
-        ProductCategory::findOrFail($id)->delete();
-        return redirect()->route('product.category.view');
-    }
+    // public function delete(int $id){
+    //     ProductCategory::findOrFail($id)->delete();
+    //     return redirect()->route('product.category.list.view');
+    // }
 }
