@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StockHistory;
 use Illuminate\Http\Request;
 
 class StockHistoryController extends Controller
@@ -30,7 +31,7 @@ class StockHistoryController extends Controller
             'message'=>'Stock History created successfully'
         ],201);
 
-        return redirect->route(stockhistory.createview);   
+        return redirect()->route('stockhistory.createview');   
 
 
     }
