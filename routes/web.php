@@ -26,6 +26,27 @@ Route::middleware('admin')->group(function () {
     Route::put('/product-category-update/{id}', [ProductCategoryController::class, 'update'])->name('update.product.category');
     Route::delete('/product-category-delete/{id}', [ProductCategoryController::class, 'delete'])->name('delete.product.category');
 
+    //Brand routes
+    Route::post('/brands', [ProductCategoryController::class, 'createBrand'])->name('brands.create');
+    Route::get('/brands-createView', [ProductCategoryController::class, 'createView'])->name('brands.create.view');
+    Route::get('/brands-list', [ProductCategoryController::class, 'listBrands'])->name('brands.list.view');
+    Route::get('/brands-update/{id}', [ProductCategoryController::class, 'updateBrand'])->name('brands.update.view');
+    Route::put('/brands-update/{id}', [ProductCategoryController::class, 'updateBrand'])->name('brands.update');
+
+    //stock history routes
+    Route::get('/stock-history-view', [ProductCategoryController::class, 'createStockHistoryView'])->name('stockhistory.createview');
+    Route::post('/stock-history', [ProductCategoryController::class, 'createStockHistory'])->name('stockhistory.create');
+    
+
+
+
+
+
+
+
+    
+
 });
+
 
 require __DIR__.'/auth.php';
