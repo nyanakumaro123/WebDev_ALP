@@ -10,7 +10,7 @@ class BrandController extends Controller
 
 {
 
-    function createBrand(Request $request){
+    function store(Request $request){
         $request->validate([
             'BrandName'=>'required|string|max:20|unique:brands,BrandName'
         ]);
@@ -19,22 +19,22 @@ class BrandController extends Controller
             'BrandName'=>$request->BrandName
         ]);
 
-        return redirect()->route('brands.create');
+        return redirect()->route('brands.list.view');
     }
 
-    function createView(){
+    function createForm(){
         return view('admin.Brand.createBrand');
     }
 
 
     function listBrands(){
         $brands = Brand::all();
-        return response()->json([
-            'brands'=>$brands,
-            'message'=>'Brands Retrieved all'
-        ],200);
+        
+        return view('admin.Brand.listBrand', [
+            'brands' => $brands
+        ]);
+        
 
-        return redirect()->route('brands.list.view');
     }
 
 

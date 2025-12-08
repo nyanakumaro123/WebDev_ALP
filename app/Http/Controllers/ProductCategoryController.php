@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 class ProductCategoryController extends Controller
 {
     public function productCategoryListView(){
-        return view('admin.listProductCategory');
+        return view('admin.ProductCategory.listProductCategory');
     }
 
     public function createFormView(){
-        return view('admin.createProductCategory');
+        return view('admin.ProductCategory.createProductCategory');
     }
 
     public function updateFormView(){
-        return view('admin.updateProductCategory');
+        return view('admin.ProductCategory.updateProductCategory');
     }
 
     public function create(Request $request){
@@ -28,7 +28,7 @@ class ProductCategoryController extends Controller
             'ProductCategoryName' => $request->ProductCategoryName
         ]);
 
-        return redirect()->route('product.category.list.view');
+        return redirect()->route('product.ProductCategory.category.list.view');
     }
     
     // public function update(Request $request, int $id){
