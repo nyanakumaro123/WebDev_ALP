@@ -13,6 +13,7 @@ class Color extends Model
     use HasFactory;
     protected $fillable = [
         "ColorName", 
+        "ColorCode", 
         "ColorCategoryID"
         
     ];

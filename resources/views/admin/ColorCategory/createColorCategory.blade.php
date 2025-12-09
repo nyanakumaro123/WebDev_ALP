@@ -5,19 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ ('Create Product Category') }}</div>
+                {{-- <div class="card-header">{{ ('Create Color Category') }}</div> --}}
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('create.product.category') }}">
+                    <form method="POST" action="{{ route('color.category.create') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="ProductCategoryName" class="col-md-4 col-form-label text-md-end">{{ ('Category Name') }}</label>
+                            {{-- <label for="ColorCategoryName" class="col-md-4 col-form-label text-md-end">{{ ('Color Category Name') }}</label> --}}
 
                             <div class="col-md-6">
-                                <input id="ProductCategoryName" type="text" class="form-control @error('ProductCategoryName') is-invalid @enderror" name="ProductCategoryName" value="{{ old('ProductCategoryName') }}" required autocomplete="ProductCategoryName" autofocus>
+                                <input id="ColorCategoryName" type="text" class="form-control @error('ColorCategoryName') is-invalid @enderror" name="ColorCategoryName" value="{{ old('ColorCategoryName') }}" required autocomplete="ColorCategoryName" autofocus>
 
-                                @error('ProductCategoryName')
+                                @error('ColorCategoryName')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -30,7 +30,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ ('Create') }}
                                 </button>
-                                <a href="{{ route('product.category.list.view') }}" class="btn btn-secondary">
+                                <a href="{{ route('color.list.view') }}" class="btn btn-secondary">
                                     {{ ('Cancel') }}
                                 </a>
                             </div>

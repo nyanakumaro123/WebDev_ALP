@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class ColorCategoryController extends Controller
 {
     public function createFormView(){
-        return view('admin.createProductCategory');
+        return view('admin.ColorCategory.createColorCategory');
     }
 
     public function updateFormView(){
-        return view('admin.updateProductCategory');
+        return view('admin.ColorCategory.updateColorCategory');
     }
 
     public function create(Request $request){
@@ -24,7 +24,7 @@ class ColorCategoryController extends Controller
             'ColorCategoryName' => $request->ColorCategoryName
         ]);
 
-        return redirect()->route('color.category.list.view');
+        return redirect()->route('color.list.view');
     }
 
         // public function update(Request $request, int $id){

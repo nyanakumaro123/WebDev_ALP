@@ -8,23 +8,23 @@ use Illuminate\Http\Request;
 class SizeCategoryController extends Controller
 {
     public function createFormView(){
-        return view('admin.createProductCategory');
+        return view('admin.SizeCategory.createSizeCategory');
     }
 
     public function updateFormView(){
-        return view('admin.updateProductCategory');
+        return view('admin.SizeCategory.updateSizeCategory');
     }
 
     public function create(Request $request){
         $request->validate([
-            'ColorCategoryName'=>'required|string|max:50',
+            'SizeCategoryName'=>'required|string|max:50',
         ]);
 
         SizeCategory::create([
             'SizeCategoryName' => $request->SizeCategoryName
         ]);
 
-        return redirect()->route('size.category.list.view');
+        return redirect()->route('size.list.view');
     }
 
         // public function update(Request $request, int $id){

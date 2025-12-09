@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
             $table->integer('SizeValue');
-            $table->foreignId('CategoryID')->constrained()->onDelete('cascade');
+            $table->foreignId('SizeCategoryID')->constrained(table: 'size_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
