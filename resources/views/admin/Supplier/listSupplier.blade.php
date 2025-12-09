@@ -6,10 +6,10 @@
     <div class="flex justify-between items-center mb-8 border-b pb-4">
         <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Brand Directory</h1>
         {{-- Link to the brand creation view --}}
-        <a href="{{ route('supplier.create.view') }}" 
+        <a href="{{ route('suppliers.create.view') }}" 
            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-semibold rounded-lg shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-            Add New Brand
+            Add New Supplier
         </a>
     </div>
 
@@ -17,7 +17,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
         {{-- Loop through the $brands collection passed from the controller --}}
-        @forelse ($suppliers as $supplier)
+        @forelse ($supiers as $supplier)
             <div class="bg-white rounded-xl shadow-2xl overflow-hidden transition duration-300 ease-in-out hover:shadow-indigo-300/50 hover:shadow-3xl border border-gray-100">
                 
                 <div class="p-6">
@@ -41,14 +41,14 @@
                 {{-- Action Buttons in Footer --}}
                 <div class="p-4 bg-gray-50 border-t flex space-x-3">
                     {{-- Edit Button --}}
-                    <a href="{{ route('supplier.update.view', $supplier->id) }}" 
+                    <a href="{{ route('suppliers.update.view', $supplier->id) }}" 
                        class="flex-1 inline-flex justify-center items-center py-2 px-3 text-center rounded-lg text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition duration-150">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                         Edit
                     </a>
                     
                     {{-- Delete Button (using a form) --}}
-                    <form action="{{ route('supplier.delete', $supplier->id) }}" method="POST" class="flex-1"
+                    <form action="{{ route('suppliers.delete', $supplier->id) }}" method="POST" class="flex-1"
                           onsubmit="return confirm('Are you sure you want to permanently remove the brand: {{ $supplier->supplier_name }}? This action cannot be undone.');">
                         @csrf
                         <button type="submit" 

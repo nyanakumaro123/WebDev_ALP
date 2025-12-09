@@ -38,11 +38,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
     Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
     Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
+    Route::get('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update.view');
+    Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
+
 
 
     //stock history routes
-    Route::get('/stock-history-view', [ProductCategoryController::class, 'createStockHistoryView'])->name('stockhistory.createview');
-    Route::post('/stock-history', [ProductCategoryController::class, 'createStockHistory'])->name('stockhistory.create');
+    Route::get('/stock-history-view', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
+    Route::post('/stock-history', [StockHistoryController::class, 'create'])->name('stockhistory.create');
+
+    //review routes
+    Route::get('/reviews-view', [ReviewController::class, 'createView'])->name('reviews.create.view');
+    Route::post('/reviews', [ReviewController::class, 'create'])->name('reviews.store');
+    Route::get('/review-list-view', [ReviewController::class, 'profileView'])->name('reviews.list.view');
+    Route::delete('reviews-delete-delete/{id}',[ReviewController::class,'deleteReview'])->name('reviews.delete');
+    Route::put('reviews-update/{id}',[ReviewController::class,'updateReview'])->name('reviews.update');
 });
 
 // Route::middleware('admin')->group(function () {
