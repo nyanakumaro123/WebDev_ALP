@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="/">HoopsCloth</a>
+        <a class="navbar-brand" href="{{ url('/') }}">HoopsCloth</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -9,15 +9,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <!-- Centered navigation links -->
             <div class="navbar-nav mx-auto">
-                
-                <a class="nav-link" href="{{ url('/index') }}#products">Products</a>
-                {{-- <a class="nav-link" href="{{ route('brands.index') }}">Brands</a> --}}
-            
+                {{-- <a class="nav-link" href="{{ route('product.list.view') }}">Product</a>
+                <a class="nav-link" href="{{ route('brand.list.view') }}">Brand</a>
+                <a class="nav-link" href="{{ route('category.list.view') }}">Category</a> --}}
             </div>
+
             <div class="navbar-nav ">
                 @auth
                     @if (auth()->user()->status == 'admin')
-                        <a class="nav-link" href="{{ route('product.category.list.view') }}">Admin</a>
+                        <a class="nav-link" href="{{ route('index') }}">Back</a>
                     @endif
                 @endauth
             </div>

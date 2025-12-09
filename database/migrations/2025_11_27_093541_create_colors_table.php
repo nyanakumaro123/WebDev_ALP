@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('ColorName');
-            $table->foreignId('ColorCategoryID')->constrained()->onDelete('cascade');
+            $table->string('ColorCode');
+            $table->foreignId('ColorCategoryID')->constrained(table: 'color_categories')->onDelete('cascade');
             
         });
     }
