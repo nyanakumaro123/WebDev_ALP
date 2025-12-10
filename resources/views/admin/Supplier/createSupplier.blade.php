@@ -15,33 +15,50 @@
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
             </div>
             <h2 class="text-3xl font-extrabold text-gray-900">
-                Register New Brand
+                Register New Supplier
             </h2>
             <p class="mt-2 text-sm text-gray-500">
-                Only the brand name is required to proceed.
+                Please fill in the details below to add a new supplier.
             </p>
         </div>
 
         {{-- Form Start --}}
-       <form action="{{ route('brands.store') }}" method="POST" class="space-y-8">
+       <form action="{{ route('suppliers.store') }}" method="POST" class="space-y-8">
         @csrf
             
             {{-- Brand Name Input Field --}}
             <div>
-                <label for="BrandName" class="block text-sm font-semibold text-gray-700 mb-1">
-                    Brand Name <span class="text-red-500">*</span>
+                <label for="SupplierName" class="block text-sm font-semibold text-gray-700 mb-1">
+                    Supplier Name <span class="text-red-500">*</span>
                 </label>
                 <div class="mt-1">
                     <input 
                         type="text" 
-                        name="BrandName" 
-                        id="BrandName" 
+                        name="SupplierName" 
+                        id="SupplierName" 
                         required 
                         placeholder="e.g., Tesla, Nike, or Acme Co."
                         class="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-base transition duration-150"
                     >
                 </div>
             </div>
+
+             <div>
+                <label for="SupplierName" class="block text-sm font-semibold text-gray-700 mb-1">
+                    Company Name <span class="text-red-500">*</span>
+                </label>
+                <div class="mt-1">
+                    <input 
+                        type="text" 
+                        name="CompanyName" 
+                        id="CompanyName" 
+                        required 
+                        placeholder="e.g., Tesla, Nike, or Acme Co."
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-base transition duration-150"
+                    >
+                </div>
+            </div>
+
 
             {{-- Save Brand Button --}}
             <div>
@@ -50,7 +67,7 @@
                     class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-[1.01]"
                 >
                     <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Save Brand
+                    Save Supplier
                 </button>
             </div>
         </form>

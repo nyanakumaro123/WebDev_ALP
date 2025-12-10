@@ -9,12 +9,17 @@
     <title>{{ config('app.name', 'HoopsCloth') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        .pagination .page-link {
-            color: #000000;
-            background-color: #ffffff;
-            border-color: #dee2e6;
-        }
+        <!-- Scripts -->
+
+    
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js']) 
+
+</head>
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
 
         .pagination .page-link:hover {
             color: #000000;
@@ -58,4 +63,10 @@
     </div>
 </body>
 
+            <!-- Page Content -->
+            <main>
+                @yield('content')
+            </main>
+        </div>
+    </body>
 </html>

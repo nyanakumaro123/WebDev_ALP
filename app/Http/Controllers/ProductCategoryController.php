@@ -31,7 +31,7 @@ class ProductCategoryController extends Controller
             'ProductCategoryName' => $request->ProductCategoryName
         ]);
 
-        return redirect()->route('product.category.list.view');
+        return redirect()->route('product.ProductCategory.category.list.view');
     }
     
     // public function update(Request $request, int $id){

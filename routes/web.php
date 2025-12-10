@@ -7,32 +7,58 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SizeCategoryController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome');                     
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //review routes
+    Route::get('/reviews-view', [ReviewController::class, 'createView'])->name('reviews.create.view');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/review-list-view', [ReviewController::class, 'listReview'])->name('reviews.list.view');
+    Route::delete('reviews-delete-delete/{id}',[ReviewController::class,'deleteReview'])->name('reviews.delete');
+    Route::put('reviews-update/{id}',[ReviewController::class,'updateReview'])->name('reviews.update');
+});
+
+Route::middleware('admin')->group(function () {
+    //Brand routes
+    Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+    Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
+    Route::get('/brands-list', [BrandController::class, 'listBrands'])->name('brands.list.view');
+    Route::get('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update.view');
+    Route::put('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update');
+    Route::delete('/brands-delete/{id}', [BrandController::class, 'deleteBrand'])->name('brands.delete');
+
+    //supplier routes
+    Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
+    Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
+    Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
+    Route::get('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update.view');
+    Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
+
+
+
+    //stock history routes
+    Route::get('/stock-history-view', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
+    Route::post('/stock-history', [StockHistoryController::class, 'create'])->name('stockhistory.create');
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
-
-Route::middleware('admin')->group(function () {
-    //Brand routes
-    Route::get('/brands-list', [ProductCategoryController::class, 'listBrands'])->name('brands.list.view');
-    Route::get('/brands-createView', [ProductCategoryController::class, 'createView'])->name('brands.create.view');
-    Route::post('/brands-create', [ProductCategoryController::class, 'createBrand'])->name('brands.create');
-    Route::get('/brands-update/{id}', [ProductCategoryController::class, 'updateBrand'])->name('brands.update.view');
-    Route::put('/brands-update/{id}', [ProductCategoryController::class, 'updateBrand'])->name('brands.update');
-
-    //stock history routes
-    Route::get('/stock-history-view', [ProductCategoryController::class, 'createStockHistoryView'])->name('stockhistory.createview');
-    Route::post('/stock-history', [ProductCategoryController::class, 'createStockHistory'])->name('stockhistory.create');
     
     
 
@@ -77,13 +103,26 @@ Route::middleware('admin')->group(function () {
     Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
 
 
+    Route::get('/products-create-view', [ProductController::class, 'createView'])->name('products.create.view');
+    Route::post('/products-store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products-list-view', [ProductController::class, 'listProducts'])->name('products.list.view');
+    Route::delete('/products-delete/{id}', [ProductController::class, 'deleteProduct'])->name('products.delete');
+    Route::put('/products-update/{id}', [ProductController::class, 'updateProduct'])->name('products.update.view');
+});
+
+// Route::middleware('admin')->group(function () {
+    
+    
+
+
+
 
 
 
 
     
 
-});
+// });
 
 
 require __DIR__.'/auth.php';
