@@ -12,7 +12,7 @@ class ReviewController extends Controller
         return view('review.createReview');
     }
 
-    public function create(Request $request){
+    public function store(Request $request){
         $request->validate([
             'Rating' => 'required|integer|min:1|max:5',
             'Comment' => 'nullable|string|max:1000',
@@ -24,7 +24,12 @@ class ReviewController extends Controller
             'Comment' => $request->Comment,
         ]);
 
-        return redirect()->route('reviews.create.view');
+        return redirect()->route('reviews.list.view');
+    }
+
+    public function listReview(){
+        $reviews = Review::with('User')->get();
+        return view('review.listReview', compact('reviews'));
     }
     //
 }

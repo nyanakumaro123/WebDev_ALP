@@ -9,9 +9,11 @@ use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome');                     
 });
 
 Route::get('/dashboard', function () {
@@ -22,7 +24,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
+    //review routes
+    Route::get('/reviews-view', [ReviewController::class, 'createView'])->name('reviews.create.view');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/review-list-view', [ReviewController::class, 'listReview'])->name('reviews.list.view');
+    Route::delete('reviews-delete-delete/{id}',[ReviewController::class,'deleteReview'])->name('reviews.delete');
+    Route::put('reviews-update/{id}',[ReviewController::class,'updateReview'])->name('reviews.update');
+});
+
+Route::middleware('admin')->group(function () {
     //Brand routes
     Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
     Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
@@ -92,18 +103,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
 
 
-
-
-
-
-    
-
-    //review routes
-    Route::get('/reviews-view', [ReviewController::class, 'createView'])->name('reviews.create.view');
-    Route::post('/reviews', [ReviewController::class, 'create'])->name('reviews.store');
-    Route::get('/review-list-view', [ReviewController::class, 'profileView'])->name('reviews.list.view');
-    Route::delete('reviews-delete-delete/{id}',[ReviewController::class,'deleteReview'])->name('reviews.delete');
-    Route::put('reviews-update/{id}',[ReviewController::class,'updateReview'])->name('reviews.update');
+    Route::get('/products-create-view', [ProductController::class, 'createView'])->name('products.create.view');
+    Route::post('/products-store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products-list-view', [ProductController::class, 'listProducts'])->name('products.list.view');
+    Route::delete('/products-delete/{id}', [ProductController::class, 'deleteProduct'])->name('products.delete');
+    Route::put('/products-update/{id}', [ProductController::class, 'updateProduct'])->name('products.update.view');
 });
 
 // Route::middleware('admin')->group(function () {
