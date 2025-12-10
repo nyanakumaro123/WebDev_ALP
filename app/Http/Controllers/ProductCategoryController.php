@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class ProductCategoryController extends Controller
 {
     public function productCategoryListView(){
-        return view('admin.ProductCategory.listProductCategory');
+        $productCategories = ProductCategory::all();
+        return view('admin.ProductCategory.listProductCategory', [
+            'productCategories' => $productCategories
+        ]);
     }
 
     public function createFormView(){

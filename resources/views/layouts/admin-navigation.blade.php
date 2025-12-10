@@ -9,15 +9,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <!-- Centered navigation links -->
             <div class="navbar-nav mx-auto">
-                {{-- <a class="nav-link" href="{{ route('product.list.view') }}">Product</a>
-                <a class="nav-link" href="{{ route('brand.list.view') }}">Brand</a>
-                <a class="nav-link" href="{{ route('category.list.view') }}">Category</a> --}}
+                <a class="dropdown-item" href="{{ route('product.category.list.view') }}">Product Categories</a>
+                <a class="dropdown-item" href="{{ route('color.list.view') }}">Colors</a>
+                <a class="dropdown-item" href="{{ route('size.list.view') }}">Sizes</a>
+                {{-- <a class="dropdown-item" href="{{ route('size-categories.index') }}">Size Categories</a>
+                <a class="dropdown-item" href="{{ route('color-categories.index') }}">Color Categories</a> --}}
             </div>
 
             <div class="navbar-nav ">
                 @auth
                     @if (auth()->user()->status == 'admin')
-                        <a class="nav-link" href="{{ route('index') }}">Back</a>
+                        <a class="nav-link" href="{{ url('/') }}">Back</a>
                     @endif
                 @endauth
             </div>

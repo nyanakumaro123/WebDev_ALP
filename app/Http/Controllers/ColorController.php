@@ -9,14 +9,20 @@ use Illuminate\Http\Request;
 class ColorController extends Controller
 {
     public function colorListView(){
+
+        $colors = Color::with('ColorCategory')->get();
+
         return view('admin.Colorr.listColor', [
-            // 'colors' => Color::with('ColorCategory')->get()
+            'colors' => $colors
         ]);
     }
     
     public function createFormView(){
+
+        $colorCategories = ColorCategory::all();
+
         return view('admin.Colorr.createColor', [
-            'colorCategories' => ColorCategory::all()
+            'colorCategories' => $colorCategories
         ]);
     }
 
@@ -33,7 +39,7 @@ class ColorController extends Controller
 
         // $colorCategory = ColorCategory::all();
 
-        $color = Color::create([
+        Color::create([
             'ColorName' => $request->ColorName,
             'ColorCode' => $request->ColorCode,
             'ColorCategoryID' => $request->ColorCategoryID

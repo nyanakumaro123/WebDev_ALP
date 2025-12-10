@@ -9,12 +9,20 @@ use Illuminate\Http\Request;
 class SizeController extends Controller
 {
     public function sizeListView(){
-        return view('admin.Size.listSize');
+
+        $sizes = Size::with('SizeCategory')->get();
+        
+        return view('admin.Size.listSize', [
+            'sizes' => $sizes
+        ]);
     }
     
     public function createFormView(){
+
+        $sizeCategories = SizeCategory::all();
+
         return view('admin.Size.createSize', [
-            'sizeCategories' => SizeCategory::all()
+            'sizeCategories' => $sizeCategories
         ]);
     }
 
