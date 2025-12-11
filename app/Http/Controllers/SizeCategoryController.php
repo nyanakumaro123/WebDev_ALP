@@ -12,9 +12,26 @@ class SizeCategoryController extends Controller
         return view('admin.SizeCategory.createSizeCategory');
     }
 
-    public function updateFormView()
+    // App\Http\Controllers\SizeCategoryController.php
+
+public function updateFormView($id) // Harus ada parameter $id
+{
+    $sizeCategory = SizeCategory::findOrFail($id); // Mencari kategori berdasarkan ID
+    // Melewatkan objek $sizeCategory ke view
+    return view('admin.SizeCategory.updateSizeCategory', compact('sizeCategory'));
+}
+    public function update(Request $request, int $id)
     {
-        return view('admin.SizeCategory.updateSizeCategory');
+        $request->validate([
+            'SizeCategoryName' => 'required|string|max:50',
+        ]);
+
+        $sizeCategory = SizeCategory::findOrFail($id);
+        $sizeCategory->update([
+            'SizeCategoryName' => $request->SizeCategoryName
+        ]);
+
+        return redirect()->route('sizes.category.list.view');
     }
 
     public function create(Request $request)
@@ -27,7 +44,22 @@ class SizeCategoryController extends Controller
             'SizeCategoryName' => $request->SizeCategoryName
         ]);
 
-        return redirect()->route('size.list.view');
+        return redirect()->route('sizes.category.list.view');
+    }
+
+    public function delete(int $id)
+    {
+        SizeCategory::findOrFail($id)->delete();
+        return redirect()->route('sizes.category.list.view');
+    }
+
+
+    public function listSizeCategories()
+    {
+        $sizecategories = SizeCategory::all();
+        return view('admin.SizeCategory.listSizeCategory', [
+            'sizecategories' => $sizecategories
+        ]);
     }
 
     // public function update(Request $request, int $id)

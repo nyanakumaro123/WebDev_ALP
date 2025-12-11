@@ -12,6 +12,7 @@ class BrandController extends Controller
 
     function store(Request $request){
         $request->validate([
+            // Saya mempertahankan max:20 sesuai dengan validasi Anda
             'BrandName'=>'required|string|max:20|unique:brands,BrandName'
         ]);
 
@@ -19,7 +20,7 @@ class BrandController extends Controller
             'BrandName'=>$request->BrandName
         ]);
 
-        return redirect()->route('brands.list.view');
+        return redirect()->route('brands.list.view')->with('success', 'Brand created successfully');
     }
 
     function createForm(){
@@ -33,48 +34,50 @@ class BrandController extends Controller
         return view('admin.Brand.listBrand', [
             'brands' => $brands
         ]);
-        
-
     }
 
 
     function deleteBrand($id){
         $brand = Brand::find($id);
         if(!$brand){
-            return response()->json([
-                'message'=>'Brand not found'
-            ],404);
+            // Mengubah respons JSON ke redirect
+            return redirect()->route('brands.list.view')->with('error', 'Brand not found');
         }
         $brand->delete();
-        return response()->json([
-            'message'=>'Brand deleted successfully'
-        ],200);
+        // Mengubah respons JSON ke redirect
+        return redirect()->route('brands.list.view')->with('success', 'Brand deleted successfully');
     }
 
+    /**
+     * Metode baru untuk menampilkan form update (sesuai brands.update.view)
+     * Anda harus mengubah route brands.update.view di web.php ke method ini.
+     */
+    function editBrand($id){
+        $brand = Brand::findOrFail($id);
+        // Mengembalikan view dan melewatkan objek $brand
+        return view('admin.Brand.updateBrand', compact('brand'));
+    }
+
+    /**
+     * Metode untuk memproses permintaan PUT (sesuai brands.update)
+     */
     function updateBrand(Request $request, $id){
         $brand = Brand::find($id);
         if(!$brand){
-            return response()->json([
-                'message'=>'Brand not found'
-            ],404);
+            // Mengubah respons JSON ke redirect
+            return redirect()->route('brands.list.view')->with('error', 'Brand not found');
         }
 
         $request->validate([
-            'BrandName'=>'required|string|max:255|unique:brands,BrandName,'.$id
+            // Menggunakan max:20 agar konsisten dengan store()
+            'BrandName'=>'required|string|max:20|unique:brands,BrandName,'.$id
         ]);
 
         $brand->update([
             'BrandName'=>$request->BrandName
         ]);
 
-        return response()->json([
-            'message'=>'Brand updated successfully',
-            'brand'=>$brand
-        ],200);
-
-        return redirect()->route('brands.update.view');
+        // Mengubah respons JSON ke redirect
+        return redirect()->route('brands.list.view')->with('success', 'Brand updated successfully');
     }
-
-
-    //
 }

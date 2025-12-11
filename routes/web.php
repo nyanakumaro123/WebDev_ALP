@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
 
+
 Route::get('/', function () {
     return view('welcome');                     
 });
@@ -73,12 +74,13 @@ Route::middleware('admin')->group(function () {
     Route::delete('/product-category-delete/{id}', [ProductCategoryController::class, 'delete'])->name('delete.product.category');
 
     //Size Category routes
-    Route::get('/size-categories-create-view', [SizeCategoryController::class, 'createFormView'])->name('size.category.create.view');
-    Route::post('/size-categories-create', [SizeCategoryController::class, 'create'])->name('size.category.create');
-    Route::get('/size-categories-update-view/{id}', [SizeCategoryController::class, 'updateFormView'])->name('size.category.update.view');
-    Route::put('/size-categories-update/{id}', [SizeCategoryController::class, 'update'])->name('size.category.update'); 
-    Route::delete('/size-categories-delete/{id}', [SizeCategoryController::class, 'delete'])->name('size.category.delete');
-    
+    Route::get('/size-categories-create-view', [SizeCategoryController::class, 'createFormView'])->name('sizes.category.create.view');
+    Route::post('/size-categories-create', [SizeCategoryController::class, 'create'])->name('sizes.category.create');
+    Route::get('/size-categories-update-view/{id}', [SizeCategoryController::class, 'updateFormView'])->name('sizes.category.update.view');
+    Route::put('/size-categories-update/{id}', [SizeCategoryController::class, 'update'])->name('sizes.category.update'); 
+    Route::delete('/size-categories-delete/{id}', [SizeCategoryController::class, 'delete'])->name('sizes.category.delete');
+    Route::get('/size-category-list-view', [SizeCategoryController::class, 'listSizeCategories'])->name('sizes.category.list.view');
+   
     //Color Category routes
     Route::get('/color-categories-create-view', [ColorCategoryController::class, 'createFormView'])->name('color.category.create.view');
     Route::post('/color-categories-create', [ColorCategoryController::class, 'create'])->name('color.category.create');
@@ -95,12 +97,13 @@ Route::middleware('admin')->group(function () {
     Route::delete('/color-delete/{id}', [ColorController::class, 'delete'])->name('color.delete');
 
     //Size routes
-    Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('size.list.view');
-    Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('size.create.view');
-    Route::post('/size-create', [SizeController::class, 'create'])->name('size.create');
-    Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('size.update.view');  
-    Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('size.update');
-    Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
+    // Bagian Size routes yang benar (menggunakan awalan 'sizes.')
+Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('sizes.list.view');
+Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('sizes.create.view');
+Route::post('/size-create', [SizeController::class, 'create'])->name('sizes.create');
+Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('sizes.update.view');  
+Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('sizes.update');
+Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
 
 
     Route::get('/products-create-view', [ProductController::class, 'createView'])->name('products.create.view');

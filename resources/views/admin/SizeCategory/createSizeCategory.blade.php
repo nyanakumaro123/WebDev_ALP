@@ -8,7 +8,7 @@
                 <div class="card-header">{{ ('Create Size Category') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('size.category.create') }}">
+                    <form method="POST" action="{{ route('sizes.category.create') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -30,7 +30,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ ('Create') }}
                                 </button>
-                                <a href="{{ route('size.list.view') }}" class="btn btn-secondary">
+                                <a href="{{ route('sizes.list.view') }}" class="btn btn-secondary">
                                     {{ ('Cancel') }}
                                 </a>
                             </div>

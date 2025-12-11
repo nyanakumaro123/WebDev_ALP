@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4>{{ __('Sizes') }}</h4>
-                        <a href="{{ route('sizes.create') }}" class="btn btn-primary">
+                        <a href="{{ route('sizes.create.view') }}" class="btn btn-primary">
                             {{ __('Create New Size') }}
                         </a>
                     </div>
@@ -35,14 +35,25 @@
                                         <tr>
                                             <td>{{ $size->id }}</td>
                                             <td>{{ $size->SizeValue }}</td>
-                                            <td>{{ $size->SizeCategory->SizeCategoryName }}</td>
+                                            
+                                            {{-- FIX 1: Null Safe Operator (Mencegah Crash jika SizeCategory NULL) --}}
+                                            <td>{{ $size->SizeCategory?->SizeCategoryName ?? 'N/A' }}</td>
+                                            
                                             <td>{{ $size->created_at->format('Y-m-d') }}</td>
-                                            <td> <a href="{{ route('sizes.edit', $size) }}"
+                                            <td> 
+                                                {{-- FIX 2: Explicitly pass ID to route --}}
+                                                <a href="{{ route('sizes.update.view', $size->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="{{ route('sizes.destroy', $size) }}" method="POST"
-                                                    class="d-inline"> @csrf @method('DELETE') <button type="submit"
+                                                
+                                                {{-- FIX 2: Explicitly pass ID to route --}}
+                                                <form action="{{ route('sizes.delete', $size->id) }}" method="POST"
+                                                    class="d-inline"> 
+                                                    @csrf 
+                                                    @method('DELETE') 
+                                                    <button type="submit"
                                                         class="btn btn-sm btn-danger"
-                                                        onclick="return confirm('Are you sure?')">Delete</button> </form>
+                                                        onclick="return confirm('Are you sure?')">Delete</button> 
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

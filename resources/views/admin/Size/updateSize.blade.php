@@ -8,7 +8,8 @@
                 <div class="card-header">{{ ('Edit Size') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('size.update') }}">
+                    {{-- FIX 1: Mengubah $size->$id menjadi $size->id --}}
+                    <form method="POST" action="{{ route('sizes.update', $size->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -52,7 +53,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ ('Update') }}
                                 </button>
-                                <a href="{{ route('size.list.view') }}" class="btn btn-secondary">
+                                {{-- FIX 2: Menggunakan route yang konsisten (sizes.list.view) --}}
+                                <a href="{{ route('sizes.list.view') }}" class="btn btn-secondary">
                                     {{ ('Cancel') }}
                                 </a>
                             </div>

@@ -8,7 +8,9 @@
                 <div class="card-header">{{ ('Edit Size Category') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('size.category.update') }}">
+                    {{-- PERBAIKAN: Sertakan ID kategori dalam route() --}}
+                    {{-- DIUBAH DARI 'sizes.category.update' MENJADI 'size.category.update' (singular, diasumsikan benar) --}}
+                    <form method="POST" action="{{ route('sizes.category.update', $sizeCategory->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -16,7 +18,15 @@
                             <label for="SizeCategoryName" class="col-md-4 col-form-label text-md-end">{{ ('Size Category Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="SizeCategoryName" type="text" class="form-control @error('SizeCategoryName') is-invalid @enderror" name="SizeCategoryName" value="{{ old('SizeCategoryName', $sizeCategory->SizeCategoryName) }}" required autocomplete="SizeCategoryName" autofocus>
+                                {{-- Pastikan variabel $sizeCategory telah dilewatkan oleh Controller --}}
+                                <input id="SizeCategoryName" 
+                                       type="text" 
+                                       class="form-control @error('SizeCategoryName') is-invalid @enderror" 
+                                       name="SizeCategoryName" 
+                                       value="{{ old('SizeCategoryName', $sizeCategory->SizeCategoryName) }}" 
+                                       required 
+                                       autocomplete="SizeCategoryName" 
+                                       autofocus>
 
                                 @error('SizeCategoryName')
                                     <span class="invalid-feedback" role="alert">
@@ -31,7 +41,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ ('Update') }}
                                 </button>
-                                <a href="{{ route('size.list.view') }}" class="btn btn-secondary">
+                                {{-- PERBAIKAN: Menggunakan route singular untuk konsistensi --}}
+                                <a href="{{ route('sizes.category.list.view') }}" class="btn btn-secondary">
                                     {{ ('Cancel') }}
                                 </a>
                             </div>
