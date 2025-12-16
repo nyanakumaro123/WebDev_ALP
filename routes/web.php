@@ -36,20 +36,22 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     //Brand routes
-    Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
-    Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
-    Route::get('/brands-list', [BrandController::class, 'listBrands'])->name('brands.list.view');
-    Route::get('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update.view');
-    Route::put('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update');
-    Route::delete('/brands-delete/{id}', [BrandController::class, 'deleteBrand'])->name('brands.delete');
+   
+Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
+Route::get('/brands-list', [BrandController::class, 'listBrands'])->name('brands.list.view');
+Route::get('/brands-update/{id}', [BrandController::class, 'editBrand'])->name('brands.update.view'); 
+Route::put('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update'); 
+Route::delete('/brands-delete/{id}', [BrandController::class, 'deleteBrand'])->name('brands.delete');
 
     //supplier routes
-    Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
-    Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
-    Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
-    Route::get('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update.view');
-    Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
+Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
+Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
+Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
+Route::get('/suppliers-update/{id}', [SupplierController::class, 'editSupplier'])->name('suppliers.update.view'); 
+Route::put('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update');
+Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
 
     //stock history routes

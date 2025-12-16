@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Brand') }}</div>
 
                 <div class="card-body">
-                    {{-- Form action diarahkan ke route PUT dengan ID Brand --}}
+                    {{-- Form action diarahkan ke brands.update dengan ID Brand --}}
                     <form method="POST" action="{{ route('brands.update', $brand->id) }}">
                         @csrf
                         @method('PUT')
@@ -17,7 +17,6 @@
                             <label for="BrandName" class="col-md-4 col-form-label text-md-end">{{ __('Brand Name') }}</label>
 
                             <div class="col-md-6">
-                                {{-- Menggunakan old() dan $brand->BrandName untuk mengisi nilai lama --}}
                                 <input id="BrandName" 
                                        type="text" 
                                        class="form-control @error('BrandName') is-invalid @enderror" 
