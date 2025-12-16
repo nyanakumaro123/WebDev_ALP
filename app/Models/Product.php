@@ -26,11 +26,11 @@ class Product extends Model
     ];
 
     public function Brand():BelongsTo{
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class, 'BrandID');
     }
 
     public function ProductCategory():BelongsTo{
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'ProducCategoryID');
     }
     public function DetailOrders():BelongsToMany{
         return $this->belongsToMany(DetailOrder::class);
@@ -49,10 +49,6 @@ class Product extends Model
 
     public function StockHistory():HasMany{
         return $this->hasMany(StockHistory::class);
-    }
-
-    public function ProductType():BelongsTo{
-        return $this->belongsTo(ProductType::class);
     }
 
 

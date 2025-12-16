@@ -18,36 +18,45 @@ class ProductCategoryController extends Controller
         return view('admin.ProductCategory.createProductCategory');
     }
 
-    public function updateFormView(){
-        return view('admin.ProductCategory.updateProductCategory');
+    public function updateFormView(int $id){
+
+        $productCategory = ProductCategory::findOrFail($id);
+        return view('admin.ProductCategory.updateProductCategory', [
+            'productCategory' => $productCategory
+        ]);
     }
 
     public function create(Request $request){
         $request->validate([
-            'ProductCategoryName'=>'required|string|max:50',
+            'ProductCategoryName'=>'required|string|max:255',
         ]);
 
         ProductCategory::create([
             'ProductCategoryName' => $request->ProductCategoryName
         ]);
 
-        return redirect()->route('product.ProductCategory.category.list.view');
+        return redirect()->route('product.category.list.view');
     }
     
-    // public function update(Request $request, int $id){
-    //     $request->validate([
-    //         'ProductCategoryName'=>'required|string|max:50',
-    //     ]);
+    public function update(Request $request, int $id){
 
-    //     ProductCategory::update([
-    //         'ProductCategoryName' => $request->ProductCategoryName
-    //     ]);
+        $request->validate([
+            'ProductCategoryName'=>'required|string|max:255',
+        ]);
 
-    //     return redirect()->route('product.category.list.view');
-    // }
+        $productCategory = ProductCategory::findOrFail($id);
+        $productCategory->update([
+            'ProductCategoryName' => $request->ProductCategoryName
+        ]);
 
-    // public function delete(int $id){
-    //     ProductCategory::findOrFail($id)->delete();
-    //     return redirect()->route('product.category.list.view');
-    // }
+        return redirect()->route('product.category.list.view');
+    }
+
+    public function delete(int $id) {
+
+        $productCategory = ProductCategory::findOrFail($id);
+        $productCategory->delete();
+
+        return redirect()->route('product.category.list.view');
+    }
 }

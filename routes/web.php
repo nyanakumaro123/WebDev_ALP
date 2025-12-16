@@ -11,7 +11,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\StockHistoryController;
 
 Route::get('/', function () {
     return view('welcome');                     
@@ -51,16 +51,9 @@ Route::middleware('admin')->group(function () {
     Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
 
-
     //stock history routes
     Route::get('/stock-history-view', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
     Route::post('/stock-history', [StockHistoryController::class, 'create'])->name('stockhistory.create');
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
-    
     
 
 
@@ -82,6 +75,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/size-category-list-view', [SizeCategoryController::class, 'listSizeCategories'])->name('sizes.category.list.view');
    
     //Color Category routes
+    Route::get('/color-categories-list-view', [ColorCategoryController::class, 'colorCategoryListView'])->name('color.category.list.view');
     Route::get('/color-categories-create-view', [ColorCategoryController::class, 'createFormView'])->name('color.category.create.view');
     Route::post('/color-categories-create', [ColorCategoryController::class, 'create'])->name('color.category.create');
     Route::get('/color-categories-update-view/{id}', [ColorCategoryController::class, 'updateFormView'])->name('color.category.update.view');
@@ -98,12 +92,12 @@ Route::middleware('admin')->group(function () {
 
     //Size routes
     // Bagian Size routes yang benar (menggunakan awalan 'sizes.')
-Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('sizes.list.view');
-Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('sizes.create.view');
-Route::post('/size-create', [SizeController::class, 'create'])->name('sizes.create');
-Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('sizes.update.view');  
-Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('sizes.update');
-Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
+    Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('sizes.list.view');
+    Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('sizes.create.view');
+    Route::post('/size-create', [SizeController::class, 'create'])->name('sizes.create');
+    Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('sizes.update.view');  
+    Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('sizes.update');
+    Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
 
 
     Route::get('/products-create-view', [ProductController::class, 'createView'])->name('products.create.view');
@@ -113,19 +107,6 @@ Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('siz
     Route::put('/products-update/{id}', [ProductController::class, 'updateProduct'])->name('products.update.view');
 });
 
-// Route::middleware('admin')->group(function () {
-    
-    
-
-
-
-
-
-
-
-    
-
-// });
 
 
 require __DIR__.'/auth.php';

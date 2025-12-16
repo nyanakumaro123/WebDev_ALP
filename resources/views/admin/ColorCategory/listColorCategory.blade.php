@@ -6,9 +6,9 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4>{{ 'Colors' }}</h4>
-                        <a href="{{ route('color.create.view') }}" class="btn btn-primary">
-                            {{ 'Create New Color' }}
+                        <h4>{{ 'Color Categories' }}</h4>
+                        <a href="{{ route('color.category.create.view') }}" class="btn btn-primary">
+                            {{ 'Create New Color Category' }}
                         </a>
                     </div>
 
@@ -17,37 +17,28 @@
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
 
-                        @if ($colors->isEmpty())
-                            <div class="alert alert-info">No colors found.</div>
+                        @if ($colorCategories->isEmpty())
+                            <div class="alert alert-info">No color categories found.</div>
                         @else
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Color Name</th>
-                                        <th>Color Code</th>
-                                        <th>Category</th>
+                                        <th>Color Category Name</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($colors as $color)
+                                    @foreach ($colorCategories as $category)
                                         <tr>
-                                            <td>{{ $color->id }}</td>
-                                            <td>{{ $color->ColorName }}</td>
+                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $category->ColorCategoryName }}</td>
+                                            <td>{{ $category->created_at->format('Y-m-d') }}</td>
                                             <td>
-                                                <span
-                                                    style="display: inline-block; width: 20px; height: 20px; 
-                                              background-color: {{ $color->ColorCode }}; border: 1px solid #ccc;"></span>
-                                                {{ $color->ColorCode }}
-                                            </td>
-                                            <td>{{ $color->ColorCategory->ColorCategoryName }}</td>
-                                            <td>{{ $color->created_at->format('Y-m-d') }}</td>
-                                            <td>
-                                                <a href="{{ route('color.update.view', $color->id) }}"
+                                                <a href="{{ route('color.category.update.view', $category->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="{{ route('color.delete', $color->id) }}" method="POST"
+                                                <form action="{{ route('color.category.delete', $category->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')

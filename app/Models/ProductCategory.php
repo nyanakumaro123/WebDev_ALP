@@ -16,8 +16,8 @@ class ProductCategory extends Model
         
     ];
 
-    public function ProductCategories():HasMany{
-        return $this->hasMany(Product::class);
+    public function Products():HasMany{
+        return $this->hasMany(Product::class, 'ProducCategoryID');
     }
 
 }

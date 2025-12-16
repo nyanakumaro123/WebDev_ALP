@@ -7,12 +7,22 @@ use Illuminate\Http\Request;
 
 class ColorCategoryController extends Controller
 {
+    public function colorCategoryListView(){
+        $colorCategories = ColorCategory::all();
+        return view('admin.ColorCategory.listColorCategory', [
+            'colorCategories' => $colorCategories
+        ]);
+    }
+
     public function createFormView(){
         return view('admin.ColorCategory.createColorCategory');
     }
 
-    public function updateFormView(){
-        return view('admin.ColorCategory.updateColorCategory');
+    public function updateFormView($id){
+        $colorCategory = ColorCategory::findOrFail($id);
+        return view('admin.ColorCategory.updateColorCategory', [
+            'colorCategory' => $colorCategory
+        ]);
     }
 
     public function create(Request $request){
@@ -27,20 +37,23 @@ class ColorCategoryController extends Controller
         return redirect()->route('color.list.view');
     }
 
-        // public function update(Request $request, int $id){
-    //     $request->validate([
-    //         'ColorCategoryName'=>'required|string|max:50',
-    //     ]);
+        public function update(Request $request, int $id){
 
-    //     ColorCategory::update([
-    //         'ColorCategoryName' => $request->ColorCategoryName
-    //     ]);
+        $request->validate([
+            'ColorCategoryName'=>'required|string|max:50',
+        ]);
 
-    //     return redirect()->route('color.category.list.view');
-    // }
+        $colorCategory = ColorCategory::findOrFail($id);
+        $colorCategory->update([
+            'ColorCategoryName' => $request->ColorCategoryName
+        ]);
 
-    // public function delete(int $id){
-    //     ColorCategory::findOrFail($id)->delete();
-    //     return redirect()->route('color.category.list.view');
-    // }
+        return redirect()->route('color.list.view');
+    }
+
+    public function delete(int $id){
+        $colorCategory = ColorCategory::findOrFail($id);
+        $colorCategory->delete();
+        return redirect()->route('color.list.view');
+    }
 }

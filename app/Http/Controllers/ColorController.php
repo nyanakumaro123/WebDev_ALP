@@ -26,8 +26,15 @@ class ColorController extends Controller
         ]);
     }
 
-    public function updateFormView(){
-        return view('admin.Colorr.updateColor');
+    public function updateFormView($id){
+
+        $color = Color::findOrFail($id);
+        $colorCategories = ColorCategory::all();
+
+        return view('admin.Colorr.updateColor', [
+            'color' => $color,
+            'colorCategories' => $colorCategories
+        ]);
     }
 
     public function create(Request $request){
@@ -50,22 +57,27 @@ class ColorController extends Controller
         return redirect()->route('color.list.view');
     }
 
-    // public function update(Request $request, int $id){
-    //     $request->validate([
-    //         'ColorName'=>'required|string|max:50',
-    //         'ColorCategoryID' => 'required|integer|exists:color_categories,id',
-    //     ]);
+    public function update(Request $request, int $id){
 
-    //     Color::update([
-    //         'ColorName' => $request->ColorName,
-    //         'ColorCategoryID' => $request->ColorCategoryID
-    //     ]);
+        $request->validate([
+            'ColorName'=>'required|string|max:50',
+            'ColorCategoryID' => 'required|integer|exists:color_categories,id',
+        ]);
 
-    //     return redirect()->route('color.category.list.view');
-    // }
+        $color = Color::findOrFail($id);
+        $color->update([
+            'ColorName' => $request->ColorName,
+            'ColorCategoryID' => $request->ColorCategoryID
+        ]);
 
-    // public function delete(int $id){
-    //     ColorCategory::findOrFail($id)->delete();
-    //     return redirect()->route('color.category.list.view');
-    // }
+        return redirect()->route('color.list.view');
+    }
+
+    public function delete(int $id){
+
+        $color = Color::findOrFail($id);
+        $color->delete();
+
+        return redirect()->route('color.list.view');
+    }
 }

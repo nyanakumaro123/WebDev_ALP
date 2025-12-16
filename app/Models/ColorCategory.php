@@ -16,6 +16,6 @@ class ColorCategory extends Model
     ];
 
     public function Colors():HasMany{
-        return $this->hasMany(Color::class);
+        return $this->hasMany(Color::class, 'ColorCategoryID');
     }
 }

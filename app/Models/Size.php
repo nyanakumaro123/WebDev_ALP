@@ -19,7 +19,7 @@ class Size extends Model
     ];
 
     public function SizeCategory():BelongsTo{
-        return $this->belongsTo(SizeCategory::class);
+        return $this->belongsTo(SizeCategory::class, 'SizeCategoryID');
     }
     public function Products():BelongsToMany{
         return $this->belongsToMany(Product::class);

@@ -24,7 +24,7 @@ class Color extends Model
     }
 
     public function ColorCategory():BelongsTo{
-        return $this->belongsTo(ColorCategory::class);
+        return $this->belongsTo(ColorCategory::class, 'ColorCategoryID');
     }
 
 

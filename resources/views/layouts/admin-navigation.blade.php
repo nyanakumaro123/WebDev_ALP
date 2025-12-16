@@ -11,7 +11,7 @@
             <div class="navbar-nav mx-auto">
                 <a class="dropdown-item" href="{{ route('product.category.list.view') }}">Product Categories</a>
                 <a class="dropdown-item" href="{{ route('color.list.view') }}">Colors</a>
-                <a class="dropdown-item" href="{{ route('size.list.view') }}">Sizes</a>
+                <a class="dropdown-item" href="{{ route('sizes.list.view') }}">Sizes</a>
                 {{-- <a class="dropdown-item" href="{{ route('size-categories.index') }}">Size Categories</a>
                 <a class="dropdown-item" href="{{ route('color-categories.index') }}">Color Categories</a> --}}
             </div>

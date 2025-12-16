@@ -16,6 +16,6 @@ class SizeCategory extends Model
     ];
 
     public function Sizes():HasMany{
-        return $this->hasMany(Size::class);
+        return $this->hasMany(Size::class, 'SizeCategoryID');
     }
 }

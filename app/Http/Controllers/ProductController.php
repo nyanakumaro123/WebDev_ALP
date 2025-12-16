@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
 
     public function createView(){
-        return view('admin.products.createProducts');
+        return view('admin.roducts.createProducts');
     }
 // App\Http\Controllers\ProductController.php
 
