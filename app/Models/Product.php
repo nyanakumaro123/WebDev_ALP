@@ -26,11 +26,15 @@ class Product extends Model
     ];
 
     public function Brand():BelongsTo{
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class, 'BrandID');
     }
 
     public function ProductCategory():BelongsTo{
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'ProductCategoryID');
+    }
+
+    public function Supplier():BelongsTo{
+        return $this->belongsTo(Supplier::class, 'SupplierID');
     }
     public function DetailOrders():BelongsToMany{
         return $this->belongsToMany(DetailOrder::class);

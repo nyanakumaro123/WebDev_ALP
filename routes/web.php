@@ -98,12 +98,12 @@ Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSuppl
 
     //Size routes
     // Bagian Size routes yang benar (menggunakan awalan 'sizes.')
-Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('sizes.list.view');
-Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('sizes.create.view');
-Route::post('/size-create', [SizeController::class, 'create'])->name('sizes.create');
-Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('sizes.update.view');  
-Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('sizes.update');
-Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
+  Route::get('/size-list-view', [SizeController::class, 'sizeListView'])->name('sizes.list.view');
+  Route::get('/size-create-view', [SizeController::class, 'createFormView'])->name('sizes.create.view');
+  Route::post('/size-create', [SizeController::class, 'create'])->name('sizes.create');
+  Route::get('/size-update-view/{id}', [SizeController::class, 'updateFormView'])->name('sizes.update.view');  
+  Route::put('/size-update/{id}', [SizeController::class, 'update'])->name('sizes.update');
+  Route::delete('/size-delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
 
 
     Route::get('/products-create-view', [ProductController::class, 'createView'])->name('products.create.view');
