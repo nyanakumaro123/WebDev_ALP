@@ -7,13 +7,21 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Supplier;
-use App\Models\ProductType;
+use App\Models\ProductCategory;
 
 class ProductController extends Controller
 {
 
     public function createView(){
-        return view('admin.roducts.createProducts');
+        $brands = Brand::all();
+        $suppliers = Supplier::all();
+        $productCategories = ProductCategory::all();
+
+        return view('admin.products.createProducts', [
+            'brands' => $brands,
+            'suppliers' => $suppliers,
+            'productCategories' => $productCategories,
+        ]);
     }
 // App\Http\Controllers\ProductController.php
 
@@ -44,7 +52,7 @@ public function store(Request $request){
     ]);
     
     return redirect()->route('products.list.view')->with('success', 'Produk berhasil ditambahkan!');
-}
+}   
     public function listProducts(){
             $products = Product::with('Brand', 'Supplier', 'ProductType')->get();
             return view('admin.Products.listProducts', compact('products'));

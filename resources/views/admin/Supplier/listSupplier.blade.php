@@ -17,7 +17,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
         {{-- Loop through the $brands collection passed from the controller --}}
-        @forelse ($supiers as $supplier)
+        @forelse ($suppliers as $supplier)
             <div class="bg-white rounded-xl shadow-2xl overflow-hidden transition duration-300 ease-in-out hover:shadow-indigo-300/50 hover:shadow-3xl border border-gray-100">
                 
                 <div class="p-6">

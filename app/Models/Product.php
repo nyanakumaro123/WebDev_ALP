@@ -30,7 +30,11 @@ class Product extends Model
     }
 
     public function ProductCategory():BelongsTo{
-        return $this->belongsTo(ProductCategory::class, 'ProducCategoryID');
+        return $this->belongsTo(ProductCategory::class, 'ProductCategoryID');
+    }
+
+    public function Supplier():BelongsTo{
+        return $this->belongsTo(Supplier::class, 'SupplierID');
     }
     public function DetailOrders():BelongsToMany{
         return $this->belongsToMany(DetailOrder::class);

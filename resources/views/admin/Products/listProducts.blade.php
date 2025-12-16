@@ -1,46 +1,82 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-6xl mx-auto my-10">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Daftar Inventaris Produk</h2>
-        <a href="{{ route('products.create.view') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm"> + Tambah Produk</a>
-    </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>{{ __('Product List') }}</h4>
+                    <a href="{{ route('products.create.view') }}" class="btn btn-primary">
+                        {{ __('Add New Product') }}
+                    </a>
+                </div>
 
-    <div class="overflow-hidden bg-white rounded-xl shadow border border-gray-200">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nama Produk</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Harga</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Stok</th>
-                    <th class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-                @foreach($products as $product)
-                <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $product->ProductName }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Rp{{ number_format($product->Price, 0, ',', '.') }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold {{ $product->ProductQuantity < 10 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
-                            {{ $product->ProductQuantity }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                        <div class="flex justify-center space-x-3">
-                            <a href="{{ route('products.update.view', $product->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                            <form action="{{ route('products.delete', $product->id) }}" method="POST" onsubmit="return confirm('Hapus produk ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
-                            </form>
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
+                    @if ($products->isEmpty())
+                        <div class="alert alert-info">No products found.</div>
+                    @else
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Brand</th>
+                                        <th>Category</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td>
+                                                @if($product->Image)
+                                                    <img src="{{ asset('storage/' . $product->Image) }}" alt="{{ $product->ProductName }}" style="width: 50px; height: 50px; object-fit: cover;">
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>{{ $product->ProductName }}</td>
+                                            <td>Rp{{ number_format($product->Price, 0, ',', '.') }}</td>
+                                            <td>{{ $product->ProductQuantity }}</td>
+                                            <td>{{ $product->Brand->BrandName ?? 'N/A' }}</td>
+                                            <td>{{ $product->ProductCategory->ProductCategoryName ?? 'N/A' }}</td>
+                                            <td>{{ $product->ProductType->ProductTypeName ?? 'N/A' }}</td>
+                                            <td> 
+                                                <a href="{{ route('products.update.view', $product->id) }}"
+                                                    class="btn btn-sm btn-warning">Edit</a>
+                                                
+                                                <form action="{{ route('products.delete', $product->id) }}" method="POST"
+                                                    class="d-inline"> 
+                                                    @csrf 
+                                                    @method('DELETE') 
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure you want to delete this product?')">Delete</button> 
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

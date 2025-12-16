@@ -35,21 +35,23 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    //Brand routes
-    Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
-    Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
-    Route::get('/brands-list', [BrandController::class, 'listBrands'])->name('brands.list.view');
-    Route::get('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update.view');
-    Route::put('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update');
-    Route::delete('/brands-delete/{id}', [BrandController::class, 'deleteBrand'])->name('brands.delete');
+    //Brand routes 
+   
+Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+Route::get('/brands-createView', [BrandController::class, 'createForm'])->name('brands.create.view');
+Route::get('/brands-list', [BrandController::class, 'listBrands'])->name('brands.list.view');
+Route::get('/brands-update/{id}', [BrandController::class, 'editBrand'])->name('brands.update.view'); 
+Route::put('/brands-update/{id}', [BrandController::class, 'updateBrand'])->name('brands.update'); 
+Route::delete('/brands-delete/{id}', [BrandController::class, 'deleteBrand'])->name('brands.delete');
 
     //supplier routes
-    Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
-    Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
-    Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
-    Route::get('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update.view');
-    Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
+Route::post('/suppliers',[SupplierController::class,'store'])->name('suppliers.store');
+Route::get('/suppliers-createView',[SupplierController::class,'createForm'])->name('suppliers.create.view');
+Route::get('/suppliers-list',[SupplierController::class,'listSuppliers'])->name("suppliers.list.view");
+Route::get('/suppliers-update/{id}', [SupplierController::class, 'editSupplier'])->name('suppliers.update.view'); 
+Route::put('/suppliers-update/{id}', [SupplierController::class, 'updateSupplier'])->name('suppliers.update');
+Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
     //stock history routes
     Route::get('/stock-history-view', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
@@ -67,12 +69,12 @@ Route::middleware('admin')->group(function () {
     Route::delete('/product-category-delete/{id}', [ProductCategoryController::class, 'delete'])->name('delete.product.category');
 
     //Size Category routes
-    Route::get('/size-categories-create-view', [SizeCategoryController::class, 'createFormView'])->name('sizes.category.create.view');
-    Route::post('/size-categories-create', [SizeCategoryController::class, 'create'])->name('sizes.category.create');
-    Route::get('/size-categories-update-view/{id}', [SizeCategoryController::class, 'updateFormView'])->name('sizes.category.update.view');
-    Route::put('/size-categories-update/{id}', [SizeCategoryController::class, 'update'])->name('sizes.category.update'); 
-    Route::delete('/size-categories-delete/{id}', [SizeCategoryController::class, 'delete'])->name('sizes.category.delete');
-    Route::get('/size-category-list-view', [SizeCategoryController::class, 'listSizeCategories'])->name('sizes.category.list.view');
+    Route::get('/size-categories-create-view', [SizeCategoryController::class, 'createFormView'])->name('size.category.create.view');
+    Route::post('/size-categories-create', [SizeCategoryController::class, 'create'])->name('size.category.create');
+    Route::get('/size-categories-update-view/{id}', [SizeCategoryController::class, 'updateFormView'])->name('size.category.update.view');
+    Route::put('/size-categories-update/{id}', [SizeCategoryController::class, 'update'])->name('size.category.update'); 
+    Route::delete('/size-categories-delete/{id}', [SizeCategoryController::class, 'delete'])->name('size.category.delete');
+    Route::get('/size-category-list-view', [SizeCategoryController::class, 'listSizeCategories'])->name('size.category.list.view');
    
     //Color Category routes
     Route::get('/color-categories-list-view', [ColorCategoryController::class, 'colorCategoryListView'])->name('color.category.list.view');
