@@ -18,36 +18,43 @@ class ProductCategoryController extends Controller
         return view('admin.ProductCategory.createProductCategory');
     }
 
-    public function updateFormView(){
-        return view('admin.ProductCategory.updateProductCategory');
+    // FIX: Menerima $id dan mengambil data untuk form edit
+    public function updateFormView(int $id){
+        $productCategory = ProductCategory::findOrFail($id);
+        return view('admin.ProductCategory.updateProductCategory', compact('productCategory'));
     }
 
     public function create(Request $request){
         $request->validate([
-            'ProductCategoryName'=>'required|string|max:50',
+            'ProductCategoryName'=>'required|string|max:50|unique:product_categories,ProductCategoryName',
         ]);
 
         ProductCategory::create([
             'ProductCategoryName' => $request->ProductCategoryName
         ]);
 
-        return redirect()->route('product.ProductCategory.category.list.view');
+        return redirect()->route('product.category.list.view')->with('success', 'Kategori produk berhasil ditambahkan!');
     }
     
-    // public function update(Request $request, int $id){
-    //     $request->validate([
-    //         'ProductCategoryName'=>'required|string|max:50',
-    //     ]);
+    // FIX: Metode Update yang benar
+    public function update(Request $request, int $id){
+        $productCategory = ProductCategory::findOrFail($id);
+        
+        $request->validate([
+            // Tambahkan pengecualian ID saat validasi unique
+            'ProductCategoryName'=>'required|string|max:50|unique:product_categories,ProductCategoryName,'.$id,
+        ]);
 
-    //     ProductCategory::update([
-    //         'ProductCategoryName' => $request->ProductCategoryName
-    //     ]);
+        $productCategory->update([
+            'ProductCategoryName' => $request->ProductCategoryName
+        ]);
 
-    //     return redirect()->route('product.category.list.view');
-    // }
+        return redirect()->route('product.category.list.view')->with('success', 'Kategori produk berhasil diperbarui!');
+    }
 
-    // public function delete(int $id){
-    //     ProductCategory::findOrFail($id)->delete();
-    //     return redirect()->route('product.category.list.view');
-    // }
+    // FIX: Metode Delete
+    public function delete(int $id){
+        ProductCategory::findOrFail($id)->delete();
+        return redirect()->route('product.category.list.view')->with('success', 'Kategori produk berhasil dihapus!');
+    }
 }
