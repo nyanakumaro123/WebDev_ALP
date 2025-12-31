@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     public function Products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_users');
     }
 
     public function StockHistory(): HasMany

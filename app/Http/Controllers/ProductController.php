@@ -6,69 +6,95 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Supplier;
 use App\Models\ProductCategory;
+use App\Models\Size;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
 
-    public function createView(){
+    public function createView()
+    {
         $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::all();
         $suppliers = Supplier::all();
         $productCategories = ProductCategory::all();
 
-        return view('admin.products.createProducts', [
+        return view('admin.Products.createProducts', [
             'brands' => $brands,
+            'colors' => $colors,
+            'sizes' => $sizes,
             'suppliers' => $suppliers,
             'productCategories' => $productCategories,
         ]);
     }
-// App\Http\Controllers\ProductController.php
-
-public function store(Request $request){
-    $request->validate([
-        'ProductName' => 'required|string|max:255',
-        'Price' => 'required|numeric|min:0',
-        'ProductQuantity' => 'required|integer|min:0', // Mengganti 'Stock' ke 'ProductQuantity'
-        'BrandID' => 'required|exists:brands,id',
-        'SupplierID' => 'required|exists:suppliers,id', // SupplierID tetap di controller, tapi tidak di form
-        'ProductTypeID' => 'required|exists:product_types,id',
-        'ProducCategoryID' => 'required|exists:product_categories,id', // Validasi baru
-        'Image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi baru
-    ]);
-
-    // Menangani Unggahan Gambar
-    $imagePath = $request->file('Image')->store('public/products');
-
-    Product::create([
-        'ProductName' => $request->ProductName,
-        'Price' => $request->Price,
-        'ProductQuantity' => $request->ProductQuantity,
-        'BrandID' => $request->BrandID,
-        'SupplierID' => $request->SupplierID, // Pastikan field ini ada di form atau Anda berikan nilai default
-        'ProductTypeID' => $request->ProductTypeID,
-        'ProducCategoryID' => $request->ProducCategoryID, // Field baru
-        'Image' => str_replace('public/', '', $imagePath), // Field baru
-    ]);
     
-    return redirect()->route('products.list.view')->with('success', 'Produk berhasil ditambahkan!');
-}   
-    public function listProducts(){
-            $products = Product::with('Brand', 'Supplier', 'ProductType')->get();
-            return view('admin.Products.listProducts', compact('products'));
+    public function updateView(int $id)
+    {
+        $product = Product::with('Brand', 'Supplier', 'ProductCategory', 'Colors', 'Sizes')->findOrFail($id);
 
+        $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::all();
+        $suppliers = Supplier::all();
+        $productCategories = ProductCategory::all();
+
+        return view('admin.Products.updateProducts', [
+            'product' => $product,
+            'brands' => $brands,
+            'colors' => $colors,
+            'sizes' => $sizes,
+            'suppliers' => $suppliers,
+            'productCategories' => $productCategories,
+        ]);
     }
 
-    public function deleteProduct($id){
-        $product = Product::findOrFail($id);
-        $product->delete();
-        return redirect()->route('products.list.view');
+    public function listProducts()
+    {
+        $products = Product::with('Brand', 'Supplier', 'ProductCategory', 'Colors', 'Sizes')->get();
+        return view('admin.Products.listProducts', compact('products'));
     }
 
- 
-    public function updateProduct(Request $request, $id){
-        $product = Product::findOrFail($id);
-        
+    public function store(Request $request)
+    {
+        $request->validate([
+            'ProductName' => 'required|string|max:255',
+            'Price' => 'required|numeric|min:0',
+            'ProductQuantity' => 'required|integer|min:0', // Mengganti 'Stock' ke 'ProductQuantity'
+            'Image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi baru
+            'BrandID' => 'required|exists:brands,id',
+            'ColorID' => 'required|exists:colors,id', // Validasi baru
+            'SupplierID' => 'required|exists:suppliers,id', // SupplierID tetap di controller, tapi tidak di form
+            'SizeID' => 'required|exists:sizes,id', // Validasi baru
+            'ProductCategoryID' => 'required|exists:product_categories,id', // Validasi baru
+        ]);
+
+        // Menangani Unggahan Gambar
+        $imagePath = $request->file('Image')->store('products', 'public');
+
+        $product = Product::create([
+            'ProductName' => $request->ProductName,
+            'Price' => $request->Price,
+            'ProductQuantity' => $request->ProductQuantity,
+            'Image' => $imagePath, // Field baru
+            'BrandID' => $request->BrandID,
+            'SupplierID' => $request->SupplierID,
+            'ProductCategoryID' => $request->ProductCategoryID, // Field baru
+        ]);
+
+        $product->Colors()->attach($request->ColorID); // Menyimpan relasi warna
+        $product->Sizes()->attach($request->SizeID); // Menyimpan relasi
+
+
+        return redirect()->route('products.list.view')->with('success', 'Produk berhasil ditambahkan!');
+    }
+
+
+    public function updateProduct(Request $request, $id)
+    {
         // 1. Validasi
         $request->validate([
             'ProductName' => 'required|string|max:255',
@@ -76,30 +102,53 @@ public function store(Request $request){
             'ProductQuantity' => 'required|integer|min:0',
             'BrandID' => 'required|exists:brands,id',
             'SupplierID' => 'required|exists:suppliers,id', // Jika Anda masih menggunakan Supplier
-            'ProductTypeID' => 'required|exists:product_types,id',
-            'ProducCategoryID' => 'required|exists:product_categories,id',
+            'ProductCategoryID' => 'required|exists:product_categories,id',
             'Image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Nullable karena boleh tidak mengganti gambar
         ]);
-        
-        $data = $request->only([
-            'ProductName', 'Price', 'ProductQuantity', 'BrandID', 'SupplierID', 'ProductTypeID', 'ProducCategoryID'
-        ]);
+
+        $product = Product::findOrFail($id);
 
         // 2. Penanganan Gambar
-        if ($request->hasFile('Image')) {
-            // Hapus gambar lama jika ada (Optional: tambahkan logic hapus storage lama)
-            // Storage::delete('public/products/' . $product->Image); 
-            
-            $imagePath = $request->file('Image')->store('public/products');
-            $data['Image'] = str_replace('public/', '', $imagePath);
+        if ($request->file('Image')) {
+            unlink('storage/' . $product->Image);
+            $product->update([
+                'ProductName' => $request->ProductName,
+                'ProductSize' => $request->ProductSize,
+                'ProductColor' => $request->ProductColor,
+                'Price' => $request->Price,
+                'ProductQuantity' => $request->ProductQuantity,
+                'Image' => $request->file('Image')->store('products', 'public'),
+                'BrandID' => $request->BrandID,
+                'SupplierID' => $request->SupplierID,
+                'ProductCategoryID' => $request->ProductCategoryID,
+            ]);
+        } else {
+            $product->update([
+                'ProductName' => $request->ProductName,
+                'ProductSize' => $request->ProductSize,
+                'ProductColor' => $request->ProductColor,
+                'Price' => $request->Price,
+                'ProductQuantity' => $request->ProductQuantity,
+                'BrandID' => $request->BrandID,
+                'ProductCategoryID' => $request->ProductCategoryID,
+            ]);
         }
 
-        // 3. Update data
-        $product->update($data);
-        
         return redirect()->route('products.list.view')->with('success', 'Produk berhasil diperbarui!');
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::findOrFail($id);
+
+        if (Storage::disk('public')->exists($product->Image)) {
+            Storage::disk('public')->delete($product->Image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('products.list.view');
     }
 }
 
     //
-

@@ -1,6 +1,5 @@
-@extends('layouts.app') 
+<x-admin-app-layout>
 
-@section('content')
 <div class="container mx-auto px-6 py-10">
     {{-- Header Section: Title and Add Button --}}
     <div class="flex justify-between items-center mb-8 border-b pb-4">
@@ -66,4 +65,4 @@
 
     </div>
 </div>
-@endsection
+</x-admin-app-layout>

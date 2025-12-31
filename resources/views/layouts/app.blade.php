@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'HoopsCloth') }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Scripts -->
     <style>
@@ -31,15 +32,12 @@
     </style>
 
 
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        {{-- @include('layouts.navigation') --}}
         @include('layouts.navigation')
+        {{-- <x-navigation /> --}}
 
         <!-- Page Heading -->
         @isset($header)
@@ -52,8 +50,7 @@
 
         <!-- Page Content -->
         <main>
-            {{-- {{ $slot }} --}}
-            @yield('content')
+            {{ $slot }}
         </main>
     </div>
 </body>

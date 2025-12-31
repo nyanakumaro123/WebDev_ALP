@@ -20,6 +20,10 @@ class Supplier extends Model
     public function StockHistory():HasMany{
         return $this->hasMany(StockHistory::class);
     }
+    
+    public function Product():HasMany{
+        return $this->hasMany(Product::class, 'SupplierID');
+    }
 
     
 }

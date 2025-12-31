@@ -1,6 +1,4 @@
-@extends('layouts.app') 
-
-@section('content')
+<x-admin-app-layout>
 
 {{-- Outer container with background and centering --}}
 <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4 sm:p-6 lg:p-8">
@@ -75,4 +73,4 @@
 
     </div>
 </div>
-@endsection
+</x-admin-app-layout>

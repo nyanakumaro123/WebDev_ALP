@@ -22,7 +22,7 @@ class Size extends Model
         return $this->belongsTo(SizeCategory::class, 'SizeCategoryID');
     }
     public function Products():BelongsToMany{
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_sizes', 'ProductID', 'SizeID');
 
     }
 }

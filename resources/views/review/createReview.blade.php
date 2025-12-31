@@ -1,6 +1,4 @@
-@extends('layouts.app') 
-
-@section('content')
+<x-app-layout>
 
 <div class="max-w-xl mx-auto my-12 p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
     <div class="text-center mb-10">
@@ -52,4 +50,4 @@
     </form>
 </div>
 
-@endsection
+</x-app-layout>

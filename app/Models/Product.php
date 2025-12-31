@@ -16,12 +16,12 @@ class Product extends Model
 
     protected $fillable = [
         "ProductName",
-        "BrandID",
         "Price",
         "ProductQuantity",
         "Image",
-        "ProductTypeID",
-        "ProducCategoryID",
+        "BrandID",
+        "SupplierID",
+        "ProductCategoryID",
         
     ];
 
@@ -36,19 +36,21 @@ class Product extends Model
     public function Supplier():BelongsTo{
         return $this->belongsTo(Supplier::class, 'SupplierID');
     }
+
     public function DetailOrders():BelongsToMany{
         return $this->belongsToMany(DetailOrder::class);
     }
+
     public function Colors():belongsToMany{
-        return $this->belongsToMany(Color::class);
+        return $this->belongsToMany(Color::class, 'color_products', 'ProductID', 'ColorID');
     }
 
     public function Sizes():BelongsToMany{
-        return $this->belongsToMany(Size::class);
+        return $this->belongsToMany(Size::class, 'product_sizes', 'ProductID', 'SizeID');
     }
 
     public function Users():BelongsToMany{
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'product_users');
     }
 
     public function StockHistory():HasMany{

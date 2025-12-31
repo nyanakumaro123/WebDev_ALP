@@ -1,122 +1,216 @@
-@extends('layouts.app')
+<x-admin-app-layout>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-center">
+            <div class="w-full md:w-10/12">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <!-- Card Header -->
+                    <div class="px-6 py-4 bg-gray-100 border-b border-gray-200">
+                        <h4 class="text-lg font-semibold text-gray-800">{{ __('Edit Product: ') . $product->ProductName }}</h4>
+                    </div>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">{{ __('Edit Product: ') . $product->ProductName }}</div>
+                    <!-- Card Body -->
+                    <div class="p-6">
+                        <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                            <!-- Row 1: Name & Price -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="ProductName" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Product Name') }}
+                                    </label>
+                                    <input id="ProductName" 
+                                           type="text" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductName') border-red-500 @enderror" 
+                                           name="ProductName" 
+                                           value="{{ old('ProductName', $product->ProductName) }}" 
+                                           required 
+                                           autofocus>
+                                    @error('ProductName')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div>
+                                    <label for="Price" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Price') }}
+                                    </label>
+                                    <input id="Price" 
+                                           type="number" 
+                                           step="0.01" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Price') border-red-500 @enderror" 
+                                           name="Price" 
+                                           value="{{ old('Price', $product->Price) }}" 
+                                           required>
+                                    @error('Price')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
 
-                        {{-- ROW 1: Name & Price --}}
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="ProductName" class="col-form-label text-md-end">{{ __('Product Name') }}</label>
-                                <input id="ProductName" type="text" class="form-control @error('ProductName') is-invalid @enderror" name="ProductName" value="{{ old('ProductName', $product->ProductName) }}" required autofocus>
-                                @error('ProductName') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
+                            <!-- Row 2: Quantity & Category -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="ProductQuantity" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Quantity') }}
+                                    </label>
+                                    <input id="ProductQuantity" 
+                                           type="number" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductQuantity') border-red-500 @enderror" 
+                                           name="ProductQuantity" 
+                                           value="{{ old('ProductQuantity', $product->ProductQuantity) }}" 
+                                           required>
+                                    @error('ProductQuantity')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div>
+                                    <label for="ProductCategoryID" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Category') }}
+                                    </label>
+                                    <select id="ProductCategoryID" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductCategoryID') border-red-500 @enderror" 
+                                            name="ProductCategoryID" 
+                                            required>
+                                        <option value="">Select Category</option>
+                                        @foreach($productCategories as $category)
+                                            <option value="{{ $category->id }}" {{ old('ProductCategoryID', $product->ProductCategoryID) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->ProductCategoryName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('ProductCategoryID')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="Price" class="col-form-label text-md-end">{{ __('Price') }}</label>
-                                <input id="Price" type="number" step="0.01" class="form-control @error('Price') is-invalid @enderror" name="Price" value="{{ old('Price', $product->Price) }}" required>
-                                @error('Price') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
-                            </div>
-                        </div>
 
-                        {{-- ROW 2: Quantity & Category --}}
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="ProductQuantity" class="col-form-label text-md-end">{{ __('Quantity') }}</label>
-                                <input id="ProductQuantity" type="number" class="form-control @error('ProductQuantity') is-invalid @enderror" name="ProductQuantity" value="{{ old('ProductQuantity', $product->ProductQuantity) }}" required>
-                                @error('ProductQuantity') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
+                            <!-- Row 3: Brand & Color -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="BrandID" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Brand') }}
+                                    </label>
+                                    <select id="BrandID" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('BrandID') border-red-500 @enderror" 
+                                            name="BrandID" 
+                                            required>
+                                        <option value="">Select Brand</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}" {{ old('BrandID', $product->BrandID) == $brand->id ? 'selected' : '' }}>
+                                                {{ $brand->BrandName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('BrandID')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div>
+                                    <label for="ColorID" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Color') }}
+                                    </label>
+                                    <select id="ColorID" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ColorID') border-red-500 @enderror" 
+                                            name="ColorID" 
+                                            required>
+                                        <option value="">Select Color</option>
+                                        @foreach($colors as $color)
+                                            <option value="{{ $color->id }}" {{ in_array($color->id, $product->colors->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                {{ $color->ColorName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('ColorID')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="ProducCategoryID" class="col-form-label text-md-end">{{ __('Category') }}</label>
-                                <select id="ProducCategoryID" class="form-control @error('ProducCategoryID') is-invalid @enderror" name="ProducCategoryID" required>
-                                    <option value="">Select Category</option>
-                                    @foreach($productCategories as $category)
-                                        <option value="{{ $category->id }}" {{ old('ProducCategoryID', $product->ProducCategoryID) == $category->id ? 'selected' : '' }}>
-                                            {{ $category->ProductCategoryName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('ProducCategoryID') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
-                            </div>
-                        </div>
 
-                        {{-- ROW 3: Brand & Product Type --}}
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="BrandID" class="col-form-label text-md-end">{{ __('Brand') }}</label>
-                                <select id="BrandID" class="form-control @error('BrandID') is-invalid @enderror" name="BrandID" required>
-                                    <option value="">Select Brand</option>
-                                    @foreach($brands as $brand)
-                                        <option value="{{ $brand->id }}" {{ old('BrandID', $product->BrandID) == $brand->id ? 'selected' : '' }}>
-                                            {{ $brand->BrandName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('BrandID') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
+                            <!-- Row 4: Supplier & Size -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="SupplierID" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Supplier') }}
+                                    </label>
+                                    <select id="SupplierID" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SupplierID') border-red-500 @enderror" 
+                                            name="SupplierID" 
+                                            required>
+                                        <option value="">Select Supplier</option>
+                                        @foreach($suppliers as $supplier)
+                                            <option value="{{ $supplier->id }}" {{ old('SupplierID', $product->SupplierID) == $supplier->id ? 'selected' : '' }}>
+                                                {{ $supplier->SupplierName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('SupplierID')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div>
+                                    <label for="SizeID" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('Size') }}
+                                    </label>
+                                    <select id="SizeID" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeID') border-red-500 @enderror" 
+                                            name="SizeID" 
+                                            required>
+                                        <option value="">Select Size</option>
+                                        @foreach($sizes as $size)
+                                            <option value="{{ $size->id }}" {{ in_array($size->id, $product->sizes->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                {{ $size->SizeValue }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('SizeID')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="ProductTypeID" class="col-form-label text-md-end">{{ __('Product Type') }}</label>
-                                <select id="ProductTypeID" class="form-control @error('ProductTypeID') is-invalid @enderror" name="ProductTypeID" required>
-                                    <option value="">Select Type</option>
-                                    @foreach($productTypes as $type)
-                                        <option value="{{ $type->id }}" {{ old('ProductTypeID', $product->ProductTypeID) == $type->id ? 'selected' : '' }}>
-                                            {{ $type->ProductTypeName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('ProductTypeID') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
-                            </div>
-                        </div>
 
-                        {{-- ROW 4: Supplier & Image --}}
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="SupplierID" class="col-form-label text-md-end">{{ __('Supplier') }}</label>
-                                <select id="SupplierID" class="form-control @error('SupplierID') is-invalid @enderror" name="SupplierID" required>
-                                    <option value="">Select Supplier</option>
-                                    @foreach($suppliers as $supplier)
-                                        <option value="{{ $supplier->id }}" {{ old('SupplierID', $product->SupplierID) == $supplier->id ? 'selected' : '' }}>
-                                            {{ $supplier->SupplierName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('SupplierID') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="Image" class="col-form-label text-md-end">{{ __('New Image (Optional)') }}</label>
-                                <input id="Image" type="file" class="form-control @error('Image') is-invalid @enderror" name="Image">
-                                @error('Image') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
+                            <!-- Image Upload -->
+                            <div class="mb-6">
+                                <label for="Image" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ __('New Image (Optional)') }}
+                                </label>
+                                <input id="Image" 
+                                       type="file" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Image') border-red-500 @enderror" 
+                                       name="Image">
+                                @error('Image')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                                 
                                 @if($product->Image)
-                                <div class="mt-2">
-                                    <small class="text-muted">Current Image:</small><br>
-                                    <img src="{{ asset('storage/' . $product->Image) }}" alt="{{ $product->ProductName }}" style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ccc;">
+                                <div class="mt-4">
+                                    <p class="text-sm text-gray-600 mb-2">Current Image:</p>
+                                    <img src="{{ asset('storage/' . $product->Image) }}" 
+                                         alt="{{ $product->ProductName }}" 
+                                         class="w-20 h-20 object-cover rounded border border-gray-300">
                                 </div>
                                 @endif
                             </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">
+                            <!-- Form Actions -->
+                            <div class="flex justify-end space-x-3">
+                                <button type="submit" 
+                                        class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                     {{ __('Update Product') }}
                                 </button>
-                                <a href="{{ route('products.list.view') }}" class="btn btn-secondary">
+                                <a href="{{ route('products.list.view') }}" 
+                                   class="px-6 py-2 bg-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-400 transition-colors">
                                     {{ __('Cancel') }}
                                 </a>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</x-admin-app-layout>

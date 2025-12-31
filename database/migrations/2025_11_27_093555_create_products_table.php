@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('ProductName');
-            $table->foreignId('BrandID')->constrained(table: 'brands')->onDelete('cascade');
             $table->integer('Price');
             $table->integer('ProductQuantity');
             $table->string('Image');
+            $table->foreignId('BrandID')->constrained(table: 'brands')->onDelete('cascade');
+            $table->foreignId('SupplierID')->constrained(table: 'suppliers')->onDelete('cascade');
             $table->foreignId('ProductCategoryID')->constrained(table: 'product_categories')->onDelete('cascade');
         });
     }
