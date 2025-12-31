@@ -3,99 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\StockHistory;
+use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockHistoryController extends Controller
 {
+    public function createView()
+    {
+        // Mengambil data untuk dropdown di form
+        $products = Product::all();
+        $suppliers = Supplier::all();
 
-    public function create(Request $request){
+        return view('admin.StockHistory.createStockHistory', compact('products', 'suppliers'));        
+    }
 
+    public function create(Request $request)
+    {
+        // FIX: Nama tabel di 'exists' harus benar (products,id bukan productsid)
         $request->validate([
-         "ProductID"=>"required|exists:productsid",
-            "StockDate"=>"required|date",
-            "SupplierID"=>"required|exists:suppliersid",
-            "StockQuantity"=>"required|integer",
-            "UserID"=>"required|exists:usersid"
-        
-        ])
-        ;
+            "ProductID" => "required|exists:products,id",
+            "StockDate" => "required|date",
+            "SupplierID" => "required|exists:suppliers,id",
+            "StockQuantity" => "required|integer|min:1",
+        ]);
+
         StockHistory::create([
-         "ProductID"=>$request->ProductID,
-            "StockDate"=>$request->StockDate,
-            "SupplierID"=>$request->SupplierID,
-            "StockQuantity"=>$request->StockQuantity,
-            "UserID"=>$request->UserID
+            "ProductID" => $request->ProductID,
+            "StockDate" => $request->StockDate,
+            "SupplierID" => $request->SupplierID,
+            "StockQuantity" => $request->StockQuantity,
+            "UserID" => Auth::id() // Menggunakan ID user yang sedang login
         ]);
 
-        return response()->json([
-            'message'=>'Stock History created successfully'
-        ],201);
-
-        return redirect()->route('stockhistory.createview');   
-
-
+        // FIX: Hapus respons JSON jika ingin menggunakan redirect
+        return redirect()->route('stockhistory.list.view')->with('success', 'Riwayat stok berhasil dicatat!');
     }
 
-    public function createView(){
-        return view('admin.StockHistory.createStockHistory');        
-    }
-
-    public function listStockHistories(){
-        $stockhistories = StockHistory::all();
-        return response()->json([
-            'stockhistories'=>$stockhistories,
-            'message'=>'Stock Histories Retrieved all'
-        ],200);
-
-        return redirect()->route('stockhistories.list.view');
-    }
-
-    public function deleteStockHistory($id){
-        $stockhistory = StockHistory::find($id);
-        if(!$stockhistory){
-            return response()->json([
-                'message'=>'Stock History not found'
-            ],404);
-        }
-        $stockhistory->delete();
-        return response()->json([
-            'message'=>'Stock History deleted successfully'
-        ],200);
-    }
-
-    public function updateStockHistory(Request $request, $id){
-        $stockhistory = StockHistory::find($id);
-        if(!$stockhistory){
-            return response()->json([
-                'message'=>'Stock History not found'
-            ],404);
-        }
-
-        $request->validate([
-         "ProductID"=>"required|exists:productsid",
-            "StockDate"=>"required|date",
-            "SupplierID"=>"required|exists:suppliersid",
-            "StockQuantity"=>"required|integer",
-            "UserID"=>"required|exists:usersid"
+    public function listStockHistories()
+    {
+        // Eager load relasi agar bisa menampilkan nama produk dan supplier
+        $stockhistories = StockHistory::with(['Product', 'Supplier', 'User'])->get();
         
-        ])
-        ;
-
-        $stockhistory->update([
-         "ProductID"=>$request->ProductID,
-            "StockDate"=>$request->StockDate,
-            "SupplierID"=>$request->SupplierID,
-            "StockQuantity"=>$request->StockQuantity,
-            "UserID"=>$request->UserID
-        ]);
-
-        return response()->json([
-            'message'=>'Stock History updated successfully'
-        ],200);
+        return view('admin.StockHistory.listStockHistory', compact('stockhistories'));
     }
 
+    public function deleteStockHistory($id)
+    {
+        $stockhistory = StockHistory::findOrFail($id);
+        $stockhistory->delete();
 
-
-
-    //
+        return redirect()->route('stockhistory.list.view')->with('success', 'Riwayat stok berhasil dihapus!');
+    }
 }

@@ -57,8 +57,16 @@ Route::middleware('admin')->group(function () {
     Route::delete('/suppliers-delete/{id}', [SupplierController::class, 'deleteSupplier'])->name('suppliers.delete');
 
     //stock history routes
-    Route::get('/stock-history-view', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
-    Route::post('/stock-history', [StockHistoryController::class, 'create'])->name('stockhistory.create');
+    Route::get('/stock-history', [StockHistoryController::class, 'listStockHistories'])->name('stockhistory.list.view');
+
+    // Menampilkan form untuk tambah stok baru
+    Route::get('/stock-history/create', [StockHistoryController::class, 'createView'])->name('stockhistory.createview');
+
+    // Memproses penyimpanan data stok baru
+    Route::post('/stock-history/store', [StockHistoryController::class, 'create'])->name('stockhistory.create');
+
+    // Menghapus riwayat stok tertentu
+    Route::delete('/stock-history/delete/{id}', [StockHistoryController::class, 'deleteStockHistory'])->name('stockhistory.delete');
 
 
 

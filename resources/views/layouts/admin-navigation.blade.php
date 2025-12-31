@@ -14,6 +14,7 @@
                 <a href="{{ route('color.list.view') }}" class="hover:text-gray-300 transition-colors">Colors</a>
                 <a href="{{ route('sizes.list.view') }}" class="hover:text-gray-300 transition-colors">Sizes</a>
                 <a href="{{ route('suppliers.list.view') }}" class="hover:text-gray-300 transition-colors">Suppliers</a>
+                <a href="{{ route('stockhistory.list.view') }}" class="hover:text-gray-300 transition-colors">Stock History</a> 
             </div>
 
             <!-- Auth Section -->
