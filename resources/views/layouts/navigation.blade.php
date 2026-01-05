@@ -17,6 +17,13 @@
             </button>
         </div>
 
+        <!-- Search Input -->
+        <div class="px-4 pt-4">
+            <form action="{{ route('shop') }}" method="GET">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." class="w-full bg-gray-800 text-white text-sm rounded px-3 py-2 focus:outline-none focus:bg-gray-700 placeholder-gray-500 transition-colors">
+            </form>
+        </div>
+
         <!-- Navigation Links -->
         <div class="flex-grow overflow-y-auto py-4">
             <!-- Desktop Navigation -->
