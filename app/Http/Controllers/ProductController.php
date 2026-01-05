@@ -153,10 +153,24 @@ class ProductController extends Controller
 
 
     // User
-    public function shop()
+    public function shop(Request $request)
     {
-        // We use paginate(10) to trigger pagination after 10 items
-        $products = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes', 'Supplier'])->paginate(10);
+        $query = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes', 'Supplier']);
+
+        // 1. Search Logic
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('ProductName', 'like', "%{$search}%");
+        }
+
+        // 2. Filter by Category
+        if ($request->filled('category_id')) {
+            $query->where('ProductCategoryID', $request->category_id);
+        }
+
+        // 3. Pagination (10 items looks best for grids)
+        $products = $query->paginate(10)->withQueryString();
+
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::with('SizeCategory')->get();
