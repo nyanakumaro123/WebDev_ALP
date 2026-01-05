@@ -17,7 +17,7 @@
                                 </label>
                                 <select id="ProductID" 
                                         name="ProductID" 
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductID') border-red-500 @enderror">
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductID') border-red-500 @enderror">
                                     <option value="">-- Pilih Produk --</option>
                                     @foreach($products as $product)
                                         <option value="{{ $product->id }}" {{ old('ProductID') == $product->id ? 'selected' : '' }}>
@@ -36,7 +36,7 @@
                                 </label>
                                 <select id="SupplierID" 
                                         name="SupplierID" 
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SupplierID') border-red-500 @enderror">
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SupplierID') border-red-500 @enderror">
                                     <option value="">-- Pilih Supplier --</option>
                                     @foreach($suppliers as $supplier)
                                         <option value="{{ $supplier->id }}" {{ old('SupplierID') == $supplier->id ? 'selected' : '' }}>
@@ -58,7 +58,7 @@
                                            type="number" 
                                            name="StockQuantity" 
                                            value="{{ old('StockQuantity') }}"
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('StockQuantity') border-red-500 @enderror">
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('StockQuantity') border-red-500 @enderror">
                                     @error('StockQuantity')
                                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -72,7 +72,7 @@
                                            type="date" 
                                            name="StockDate" 
                                            value="{{ old('StockDate', date('Y-m-d')) }}"
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('StockDate') border-red-500 @enderror">
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('StockDate') border-red-500 @enderror">
                                     @error('StockDate')
                                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -85,7 +85,7 @@
                                     {{ __('Batal') }}
                                 </a>
                                 <button type="submit" 
-                                        class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-6 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ __('Simpan Stok') }}
                                 </button>
                             </div>

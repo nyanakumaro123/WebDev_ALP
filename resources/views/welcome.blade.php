@@ -11,26 +11,26 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased text-gray-900">
-    <nav class="fixed w-full z-50 top-0 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <nav class="fixed w-full z-50 top-0 bg-current backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-md shadow-indigo-200">
                     <span class="text-white font-bold text-xl">C</span>
                 </div>
-                <span class="text-xl font-black tracking-tighter text-gray-800 uppercase">Cahaya Makmur</span>
+                <span class="text-xl font-black tracking-tighter text-white uppercase">Cahaya Makmur</span>
             </div>
 
             <div class="flex items-center gap-3">
                 @auth
-                    <a href="{{ url('/admin-dashboard') }}" class="px-6 py-2.5 bg-black text-white rounded-full font-bold text-sm shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all active:scale-95">
+                    <a href="{{ url('/admin-dashboard') }}" class="px-6 py-2.5 bg-black text-white rounded-full font-bold text-sm shadow-xl shadow-indigo-200 hover:bg-black transition-all active:scale-95">
                         Go to Dashboard
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="px-6 py-2.5 bg-gray-900 text-white rounded-full font-bold text-sm shadow-xl shadow-gray-200 hover:bg-black transition-all active:scale-95"">
+                    <a href="{{ route('login') }}" class="px-6 py-2.5 bg-gray-900 text-white rounded-full font-bold text-sm shadow-md shadow-indigo-200 hover:bg-black transition-all active:scale-95"">
                         Log in
                     </a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="px-6 py-2.5 bg-gray-900 text-white rounded-full font-bold text-sm shadow-xl shadow-gray-200 hover:bg-black transition-all active:scale-95">
+                        <a href="{{ route('register') }}" class="px-6 py-2.5 bg-gray-900 text-white rounded-full font-bold text-sm shadow-md shadow-indigo-200 hover:bg-black transition-all active:scale-95">
                             Register
                         </a>
                     @endif
@@ -55,15 +55,9 @@
                 </p>
 
                 <div class="flex gap-4 pt-4">
-                    <a href="{{ route('login') }}" class="px-10 py-4 bg-black text-white rounded-2xl font-black text-lg shadow-2xl shadow-indigo-200 hover:scale-105 hover:bg-indigo-700 transition-all">
+                    <a href="{{ route('login') }}" class="px-10 py-4 bg-gray-900 text-white rounded-2xl font-black text-lg shadow-2xl shadow-indigo-200 hover:scale-105 hover:bg-black transition-all">
                         Get Started
                     </a>
-                    <div class="flex -space-x-3 items-center ml-4">
-                        <div class="w-10 h-10 rounded-full border-4 border-white bg-gray-200"></div>
-                        <div class="w-10 h-10 rounded-full border-4 border-white bg-gray-300"></div>
-                        <div class="w-10 h-10 rounded-full border-4 border-white bg-gray-400"></div>
-                        <p class="pl-6 text-sm font-bold text-gray-400 uppercase tracking-widest">Trusted by many</p>
-                    </div>
                 </div>
             </div>
 

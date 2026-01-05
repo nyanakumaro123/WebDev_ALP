@@ -25,8 +25,8 @@
                     <div class="max-w-[70%]">
                         <p class="font-bold">{{ strtoupper($product->ProductName) }}</p>
                         <p class="text-xs text-gray-500">
-                            @foreach($order->Colors as $c){{ $c->ColorName }}@endforeach / 
-                            @foreach($order->Sizes as $s){{ $s->SizeValue }}@endforeach
+                            @foreach($order->Colors as $c){{ $c->ColorName }} {{ $c->ColorCode }}@endforeach / 
+                            @foreach($order->Sizes as $s){{ $s->SizeValue }} {{ $s->SizeCategory->SizeCategoryName }}@endforeach
                         </p>
                         <p class="text-xs">{{ $order->OrderQuantity }} x {{ number_format($order->TotalPricePerItem, 0, ',', '.') }}</p>
                     </div>

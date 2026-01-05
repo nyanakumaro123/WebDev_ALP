@@ -6,7 +6,7 @@
             </div>
 
             <div
-                class="bg-indigo-700 rounded-2xl p-8 mb-10 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-x-2">
+                class="bg-gray-800 rounded-2xl p-8 mb-10 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-x-2">
                 <div class="flex items-center gap-6">
                     <div>
                         <p class="text-indigo-200 text-sm font-bold uppercase tracking-widest">Total Transaction</p>
@@ -16,7 +16,7 @@
 
                 @if (count($detailOrders) > 0)
                     <a href="{{ route('show.invoice', ['ids' => $orderIds]) }}" target="_blank"
-                        class="ml-8 bg-white text-indigo-700 px-8 py-4 rounded-2xl font-black text-lg shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+                        class="ml-8 bg-white text-gray-800 px-6 py-3 rounded-2xl font-black text-lg shadow-lg hover:scale-105 transition-all whitespace-nowrap">
                         GENERATE INVOICE
                     </a>
                 @endif
@@ -24,7 +24,7 @@
 
         </div>
         <div class="mb-6"> <a href="{{ route('detail.order.create.view') }}"
-                class="inline-flex items-center px-4 py-1.5 bg-blue-600 border border-transparent rounded-md font-bold text-[10px] text-white uppercase tracking-widest hover:bg-blue-700 transition shadow-sm">
+                class="inline-flex items-center px-4 py-1.5 bg-gray-800 border border-transparent rounded-md font-bold text-[10px] text-white uppercase tracking-widest hover:bg-black transition shadow-sm">
                 <i class="fa-solid fa-plus mr-2"></i> Add New Detail Order
             </a>
         </div>
@@ -33,7 +33,7 @@
             @foreach ($detailOrders as $order)
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
                     <div class="p-4 bg-gray-50 flex justify-between items-center border-b border-gray-100">
-                        <span class="text-xs font-bold text-indigo-600">ID #{{ $order->id }}</span>
+                        <span class="text-xs font-bold text-gray-600">ID #{{ $order->id }}</span>
                         <span class="text-xs text-gray-400">{{ $order->created_at->format('M d, H:i') }}</span>
                     </div>
 
@@ -47,7 +47,7 @@
                                 <span class="text-gray-400">Color / Size</span>
                                 <span class="text-gray-700 font-medium">
                                     @foreach ($order->Colors as $c)
-                                        {{ $c->ColorName }}
+                                        {{ $c->ColorName }} {{ $c->ColorCode }}
                                     @endforeach /
                                     @foreach ($order->Sizes as $s)
                                         {{ $s->SizeValue }} {{ $s->SizeCategory->SizeCategoryName }}
@@ -62,7 +62,7 @@
                             <div
                                 class="my-4 border-t border-dashed border-gray-200 pt-4 flex justify-between items-center">
                                 <span class="text-gray-600 font-semibold">Total Paid</span>
-                                <span class="text-2xl font-black text-indigo-700">Rp
+                                <span class="text-2xl font-black text-gray-800">Rp
                                     {{ number_format($order->FinalPrice, 0, ',', '.') }}</span>
                             </div>
                         </div>

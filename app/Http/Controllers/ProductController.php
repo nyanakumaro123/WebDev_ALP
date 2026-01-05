@@ -53,9 +53,28 @@ class ProductController extends Controller
         ]);
     }
 
-    public function listProducts()
+    public function listProducts(Request $request)
     {
-        $products = Product::with('Brand', 'Supplier', 'ProductCategory', 'Colors', 'Sizes')->get();
+        // 1. Start a query for products with their relationships
+        $query = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes.SizeCategory']);
+
+        // 2. Apply search filter if the search input is filled
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('ProductName', 'like', '%' . $searchTerm . '%')
+                ->orWhereHas('Brand', function($bq) use ($searchTerm) {
+                    $bq->where('BrandName', 'like', '%' . $searchTerm . '%');
+                })
+                ->orWhereHas('ProductCategory', function($cq) use ($searchTerm) {
+                    $cq->where('ProductCategoryName', 'like', '%' . $searchTerm . '%');
+                });
+            });
+        }
+
+        // 3. Get paginated results (e.g., 10 per page) and keep search parameters in links
+        $products = $query->paginate(10)->withQueryString();
+
         return view('admin.Products.listProducts', compact('products'));
     }
 
@@ -155,36 +174,33 @@ class ProductController extends Controller
     // User
     public function shop(Request $request)
     {
-        $query = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes', 'Supplier']);
-
-        // 1. Search Logic
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where('ProductName', 'like', "%{$search}%");
-        }
-
-        // 2. Filter by Category
-        if ($request->filled('category_id')) {
-            $query->where('ProductCategoryID', $request->category_id);
-        }
-
-        // 3. Pagination (10 items looks best for grids)
-        $products = $query->paginate(10)->withQueryString();
-
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::with('SizeCategory')->get();
         $suppliers = Supplier::all();
-        $productCategories = ProductCategory::all();
+        $categories = ProductCategory::all();
 
-        return view('user.Product.shop', compact('products', 'brands', 'colors', 'sizes', 'suppliers', 'productCategories'));
+        // Start the query with relationships
+        $query = Product::with(['Brand', 'ProductCategory', 'Sizes.SizeCategory', 'colors']);
+
+        // 1. Handle Search
+        if ($request->filled('search')) {
+            $query->where('ProductName', 'like', '%' . $request->search . '%');
+        }
+
+        // 2. Handle Category Filtering
+        if ($request->filled('category')) {
+            $query->whereHas('ProductCategory', function($q) use ($request) {
+                $q->where('ProductCategoryName', $request->category);
+            });
+        }
+
+        // 3. Get paginated results (10 per page as you requested)
+        $products = $query->paginate(10);
+
+        return view('user.Product.shop', compact('products', 'categories'));
     }
 
-    //     public function show($id)
-    //     {
-    //         $product = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes'])->findOrFail($id);
-    //         return view('products.show', compact('product'));
-    // }
 }
 
     //

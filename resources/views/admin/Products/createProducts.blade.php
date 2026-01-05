@@ -21,7 +21,7 @@
                                     </label>
                                     <input id="ProductName" 
                                            type="text" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductName') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductName') border-red-500 @enderror" 
                                            name="ProductName" 
                                            value="{{ old('ProductName') }}" 
                                            required 
@@ -38,7 +38,7 @@
                                     <input id="Price" 
                                            type="number" 
                                            step="0.01" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Price') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('Price') border-red-500 @enderror" 
                                            name="Price" 
                                            value="{{ old('Price') }}" 
                                            required>
@@ -56,7 +56,7 @@
                                     </label>
                                     <input id="ProductQuantity" 
                                            type="number" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductQuantity') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductQuantity') border-red-500 @enderror" 
                                            name="ProductQuantity" 
                                            value="{{ old('ProductQuantity') }}" 
                                            required>
@@ -76,7 +76,7 @@
                                         </a>
                                     </div>
                                     <select id="ProductCategoryID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductCategoryID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductCategoryID') border-red-500 @enderror" 
                                             name="ProductCategoryID" 
                                             required>
                                         <option value="">Select Category</option>
@@ -105,7 +105,7 @@
                                         </a>
                                     </div>
                                     <select id="BrandID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('BrandID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('BrandID') border-red-500 @enderror" 
                                             name="BrandID" 
                                             required>
                                         <option value="">Select Brand</option>
@@ -131,7 +131,7 @@
                                         </a>
                                     </div>
                                     <select id="ColorID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ColorID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ColorID') border-red-500 @enderror" 
                                             name="ColorID" 
                                             required>
                                         <option value="">Select Color</option>
@@ -160,7 +160,7 @@
                                         </a>
                                     </div>
                                     <select id="SupplierID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SupplierID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SupplierID') border-red-500 @enderror" 
                                             name="SupplierID" 
                                             required>
                                         <option value="">Select Supplier</option>
@@ -186,7 +186,7 @@
                                         </a>
                                     </div>
                                     <select id="SizeID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SizeID') border-red-500 @enderror" 
                                             name="SizeID" 
                                             required>
                                         <option value="">Select Size</option>
@@ -209,7 +209,7 @@
                                 </label>
                                 <input id="Image" 
                                        type="file" 
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Image') border-red-500 @enderror" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('Image') border-red-500 @enderror" 
                                        name="Image" 
                                        required>
                                 @error('Image')
@@ -220,7 +220,7 @@
                             <!-- Form Actions -->
                             <div class="flex justify-end space-x-3">
                                 <button type="submit" 
-                                        class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-6 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ __('Save Product') }}
                                 </button>
                                 <a href="{{ route('products.list.view') }}" 

@@ -6,6 +6,14 @@
                     <!-- Card Header -->
                     <div class="px-6 py-4 bg-gray-100 border-b border-gray-200 flex justify-between items-center">
                         <h4 class="text-lg font-semibold text-gray-800">{{ __('Product List') }}</h4>
+                        <form action="{{ route('products.list.view') }}" method="GET" class="flex w-full md:w-auto">
+                            <input type="text" name="search" value="{{ request('search') }}" 
+                                   placeholder="Search products name..." 
+                                   class="rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm w-full md:w-64">
+                            <button type="submit" class="bg-gray-800 text-white px-4 py-2 rounded-r-md hover:bg-black transition-colors text-sm">
+                                Search
+                            </button>
+                        </form>
                         <a href="{{ route('products.create.view') }}" 
                            class="px-4 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors">
                             {{ __('Add New Product') }}
@@ -88,7 +96,7 @@
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm">
                                                     @if($product->Sizes->isNotEmpty())
                                                         <span class="text-gray-900">
-                                                            {{ $product->Sizes->pluck('SizeValue')->implode(', ') }} {{ $product->SizeCategoryName }}
+                                                            {{ $product->Sizes->pluck('SizeValue')->implode(', ') }} {{ $product->Sizes->first()->SizeCategory->SizeCategoryName ?? '' }}
                                                         </span>
                                                     @else
                                                         <span class="text-gray-400">No sizes</span>
@@ -123,6 +131,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="mt-6">
+                                {{ $products->links() }}
                             </div>
                         @endif
                     </div>

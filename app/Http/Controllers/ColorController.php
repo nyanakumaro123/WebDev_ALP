@@ -8,16 +8,32 @@ use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-    public function colorListView(){
+    public function colorListView(Request $request)
+    {
 
-        $colors = Color::with('ColorCategory')->get();
+        // 1. Start the query with the category relationship
+        $query = Color::with('ColorCategory');
 
-        return view('admin.Colorr.listColor', [
-            'colors' => $colors
-        ]);
+        // 2. Apply search filter if present
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('ColorName', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('ColorCode', 'like', '%' . $searchTerm . '%')
+                    ->orWhereHas('ColorCategory', function ($cq) use ($searchTerm) {
+                        $cq->where('ColorCategoryName', 'like', '%' . $searchTerm . '%');
+                    });
+            });
+        }
+
+        // 3. Paginate (10 per page) and keep search terms in links
+        $colors = $query->paginate(10)->withQueryString();
+
+        return view('admin.Colorr.listColor', compact('colors'));
     }
-    
-    public function createFormView(){
+
+    public function createFormView()
+    {
 
         $colorCategories = ColorCategory::all();
 
@@ -26,7 +42,8 @@ class ColorController extends Controller
         ]);
     }
 
-    public function updateFormView($id){
+    public function updateFormView($id)
+    {
 
         $color = Color::findOrFail($id);
         $colorCategories = ColorCategory::all();
@@ -37,10 +54,11 @@ class ColorController extends Controller
         ]);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $request->validate([
-            'ColorName'=>'required|string|max:50',
-            'ColorCode'=>'required|string|max:50',
+            'ColorName' => 'required|string|max:50',
+            'ColorCode' => 'required|string|max:50',
             'ColorCategoryID' => 'required|integer|exists:color_categories,id',
         ]);
 
@@ -57,10 +75,11 @@ class ColorController extends Controller
         return redirect()->route('color.list.view');
     }
 
-    public function update(Request $request, int $id){
+    public function update(Request $request, int $id)
+    {
 
         $request->validate([
-            'ColorName'=>'required|string|max:50',
+            'ColorName' => 'required|string|max:50',
             'ColorCategoryID' => 'required|integer|exists:color_categories,id',
         ]);
 
@@ -73,7 +92,8 @@ class ColorController extends Controller
         return redirect()->route('color.list.view');
     }
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
 
         $color = Color::findOrFail($id);
         $color->delete();

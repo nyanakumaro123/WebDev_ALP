@@ -7,7 +7,7 @@
                     <div class="px-6 py-4 bg-gray-100 border-b border-gray-200 flex justify-between items-center">
                         <h4 class="text-lg font-semibold text-gray-800">{{ 'Color Categories' }}</h4>
                         <a href="{{ route('color.category.create.view') }}" 
-                           class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
+                           class="px-4 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors">
                             {{ 'Create New Color Category' }}
                         </a>
                     </div>
@@ -21,7 +21,7 @@
                         @endif
 
                         @if ($colorCategories->isEmpty())
-                            <div class="p-4 bg-blue-100 border border-blue-200 text-blue-700 rounded-md">
+                            <div class="p-4 bg-blue-100 border border-blue-200 text-black rounded-md">
                                 No color categories found.
                             </div>
                         @else

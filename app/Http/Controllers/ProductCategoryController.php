@@ -12,8 +12,19 @@ use App\Models\ProductCategory;
 
 class ProductCategoryController extends Controller
 {
-    public function productCategoryListView(){
-        $productCategories = ProductCategory::all();
+    public function productCategoryListView(Request $request)
+    {
+        // 1. Start the query
+        $query = ProductCategory::query();
+
+        // 2. Check if there is a search term
+        if ($request->filled('search')) {
+            $query->where('ProductCategoryName', 'like', '%' . $request->search . '%');
+        }
+
+        // 3. Paginate the results (e.g., 10 per page) and keep the search query in links
+        $productCategories = $query->paginate(10)->withQueryString();
+
         return view('admin.ProductCategory.listProductCategory', [
             'productCategories' => $productCategories
         ]);

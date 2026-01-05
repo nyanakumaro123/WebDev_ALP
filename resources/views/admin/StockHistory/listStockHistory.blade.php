@@ -4,7 +4,7 @@
             <div class="px-6 py-4 bg-gray-100 border-b border-gray-200 flex justify-between items-center">
                 <h4 class="text-lg font-semibold text-gray-800">{{ __('Riwayat Stok Masuk') }}</h4>
                 <a href="{{ route('stockhistory.createview') }}" 
-                   class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                   class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-black active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                     + {{ __('Tambah Stok') }}
                 </a>
             </div>
@@ -41,7 +41,7 @@
                                     {{ $history->Supplier->SupplierName ?? 'N/A' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         + {{ $history->StockQuantity }}
                                     </span>
                                 </td>

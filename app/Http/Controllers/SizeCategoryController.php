@@ -40,7 +40,7 @@ class SizeCategoryController extends Controller
             'SizeCategoryName' => $request->SizeCategoryName
         ]);
 
-        return redirect()->route('size.list.view')->with('success', 'Kategori ukuran berhasil ditambahkan!');
+        return redirect()->route('sizes.list.view')->with('success', 'Kategori ukuran berhasil ditambahkan!');
     }
 
     public function update(Request $request, int $id)

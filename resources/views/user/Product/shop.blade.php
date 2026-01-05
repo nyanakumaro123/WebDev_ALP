@@ -3,13 +3,15 @@
         <div class="bg-white border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between">
                 <div>
-                    <h1 class="text-4xl font-black text-gray-900 tracking-tight">Our Collection</h1>
+                    <h1 class="text-4xl font-black text-gray-900 tracking-tight">All Products</h1>
                     <p class="text-gray-500 mt-2 text-lg">Quality goods curated for your lifestyle.</p>
                 </div>
                 <div class="mt-6 md:mt-0 relative w-full md:w-96">
-                    <input type="text" placeholder="Search products..." 
-                           class="w-full pl-12 pr-4 py-3 rounded-2xl border-none bg-gray-100 focus:ring-2 focus:ring-indigo-500 transition-all">
-                    <svg class="w-5 h-5 absolute left-4 top-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <form action="{{ route('shop') }}" method="GET">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." 
+                               class="w-full pl-12 pr-4 py-3 rounded-2xl border-none bg-gray-100 focus:ring-2 focus:ring-indigo-500 transition-all">
+                        <svg class="w-5 h-5 absolute left-4 top-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </form>
                 </div>
             </div>
         </div>
@@ -19,9 +21,14 @@
                 <div>
                     <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Categories</h3>
                     <div class="flex flex-wrap lg:flex-col gap-2">
-                        <a href="#" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-md shadow-indigo-100">All Items</a>
-                        @foreach($productCategories as $category)
-                            <a href="#" class="px-4 py-2 bg-white text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl text-sm font-semibold transition-colors border border-gray-100">
+                        <a href="{{ route('shop') }}" 
+                        class="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest {{ !request('category') ? 'bg-black text-white' : 'text-gray-500 hover:bg-gray-100' }}">
+                            All Categories
+                        </a>
+
+                        @foreach($categories as $category)
+                            <a href="{{ route('shop', ['category' => $category->ProductCategoryName]) }}" 
+                            class="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest {{ request('category') == $category->ProductCategoryName ? 'bg-black text-white' : 'text-gray-500 hover:bg-gray-100' }}">
                                 {{ $category->ProductCategoryName }}
                             </a>
                         @endforeach

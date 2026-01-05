@@ -5,7 +5,17 @@
                 <div class="bg-white overflow-hidden shadow-lg rounded-lg">
                     <div class="px-6 py-4 bg-gray-100 border-b border-gray-200 flex justify-between items-center">
                         <h4 class="text-lg font-semibold text-gray-800">{{ 'Colors' }}</h4>
-                        <a href="{{ route('color.create.view') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        <div class="flex flex-1 justify-center max-w-md w-full">
+                            <form action="{{ route('color.list.view') }}" method="GET" class="flex w-full">
+                                <input type="text" name="search" value="{{ request('search') }}" 
+                                       placeholder="Search colors name..." 
+                                       class="rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm w-full">
+                                <button type="submit" class="bg-gray-800 text-white px-4 py-2 rounded-r-md hover:bg-black transition-colors text-sm">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                        <a href="{{ route('color.create.view') }}" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-black transition-colors">
                             {{ 'Create New Color' }}
                         </a>
                     </div>
@@ -18,7 +28,7 @@
                         @endif
 
                         @if ($colors->isEmpty())
-                            <div class="p-4 bg-blue-100 border border-blue-200 text-blue-700 rounded-md">
+                            <div class="p-4 bg-blue-100 border border-blue-200 text-black rounded-md">
                                 No colors found.
                             </div>
                         @else
@@ -65,6 +75,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="mt-6">
+                                {{ $colors->links() }}
                             </div>
                         @endif
                     </div>

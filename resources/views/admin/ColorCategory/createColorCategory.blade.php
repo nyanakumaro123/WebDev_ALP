@@ -10,7 +10,7 @@
 
                     <!-- Card Body -->
                     <div class="p-6">
-                        <form method="POST" action="{{ route('color.category.create') }}">
+                        <form method="POST" action="{{ route('color.category.list.view') }}">
                             @csrf
 
                             <!-- Color Category Name -->
@@ -21,7 +21,7 @@
                                 <div>
                                     <input id="ColorCategoryName" 
                                            type="text" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ColorCategoryName') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ColorCategoryName') border-red-500 @enderror" 
                                            name="ColorCategoryName" 
                                            value="{{ old('ColorCategoryName') }}" 
                                            required 
@@ -39,7 +39,7 @@
                             <!-- Form Actions -->
                             <div class="flex justify-end space-x-3">
                                 <button type="submit" 
-                                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-4 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ ('Create') }}
                                 </button>
                                 <a href="{{ route('color.list.view') }}" 

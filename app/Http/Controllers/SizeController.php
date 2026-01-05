@@ -11,13 +11,26 @@ class SizeController extends Controller
     /**
      * Menampilkan daftar semua ukuran.
      */
-    public function sizeListView(){
-        // Eager load SizeCategory untuk mencegah N+1 Query
-        $sizes = Size::with('SizeCategory')->get();
-        
-        return view('admin.Size.listSize', [
-            'sizes' => $sizes
-        ]);
+    public function sizeListView(Request $request){
+        // 1. Start the query with the SizeCategory relationship
+        $query = Size::with('SizeCategory');
+
+        // 2. Apply search filter if the search input is filled
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('SizeValue', 'like', '%' . $searchTerm . '%')
+                ->orWhereHas('SizeCategory', function($cq) use ($searchTerm) {
+                    $cq->where('SizeCategoryName', 'like', '%' . $searchTerm . '%');
+                });
+            });
+        }
+
+        // 3. Use paginate() instead of get() or all()
+        // withQueryString() ensures the search term stays in the URL when changing pages
+        $sizes = $query->paginate(10)->withQueryString();
+
+        return view('admin.Size.listSize', compact('sizes'));
     }
     
     /**

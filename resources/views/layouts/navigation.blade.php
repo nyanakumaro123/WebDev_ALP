@@ -17,22 +17,12 @@
             </button>
         </div>
 
-        <!-- Search Input -->
-        <div class="px-4 pt-4">
-            <form action="{{ route('shop') }}" method="GET">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." class="w-full bg-gray-800 text-white text-sm rounded px-3 py-2 focus:outline-none focus:bg-gray-700 placeholder-gray-500 transition-colors">
-            </form>
-        </div>
-
         <!-- Navigation Links -->
         <div class="flex-grow overflow-y-auto py-4">
             <!-- Desktop Navigation -->
             <div class="hidden md:flex flex-col space-y-2 px-4">
                 <a href="{{ route('shop') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
                     Products
-                </a>
-                <a href="{{ route('brands.list.view') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
-                    Brands
                 </a>
                 <a href="{{ route('reviews.list.view') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
                     Review

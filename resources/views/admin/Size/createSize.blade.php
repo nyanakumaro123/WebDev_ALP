@@ -21,7 +21,7 @@
                                 <div>
                                     <input id="SizeValue" 
                                            type="text" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeValue') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SizeValue') border-red-500 @enderror" 
                                            name="SizeValue" 
                                            value="{{ old('SizeValue') }}" 
                                            required 
@@ -42,14 +42,14 @@
                                     <label for="SizeCategoryID" class="block text-sm font-medium text-gray-700">
                                         {{ ('Size Category') }}
                                     </label>
-                                    <a href="{{ route('size.category.create.view') }}" 
+                                    <a href="{{ route('size.category.list.view') }}" 
                                        class="text-sm text-blue-600 hover:text-blue-800">
                                         New Category
                                     </a>
                                 </div>
                                 <div>
                                     <select id="SizeCategoryID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeCategoryID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SizeCategoryID') border-red-500 @enderror" 
                                             name="SizeCategoryID" 
                                             required>
                                         <option value="">Select Category</option>
@@ -71,7 +71,7 @@
                             <!-- Form Actions -->
                             <div class="flex justify-end space-x-3">
                                 <button type="submit" 
-                                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-4 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ ('Create') }}
                                 </button>
                                 <a href="{{ route('sizes.list.view') }}" 
