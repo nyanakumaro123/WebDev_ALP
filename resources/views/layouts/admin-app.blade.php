@@ -8,25 +8,25 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
-
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.admin-navigation')
-
+        @include('layouts.admin-navigation')
+        
+        <!-- The content will be inserted into the sidebar layout -->
+        @section('content')
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
             <!-- Page Content -->
-            <main>
+            {{-- <div class="p-4 sm:px-6 lg:px-8">
                 {{ $slot }}
-            </main>
-        </div>
+            </div> --}}
+        @endsection
     </body>
 </html>

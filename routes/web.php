@@ -8,6 +8,7 @@ use App\Http\Controllers\SizeCategoryController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\DetailOrderController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/review-list-view', [ReviewController::class, 'listReview'])->name('reviews.list.view');
     Route::delete('reviews-delete-delete/{id}', [ReviewController::class, 'deleteReview'])->name('reviews.delete');
     Route::put('reviews-update/{id}', [ReviewController::class, 'updateReview'])->name('reviews.update');
+
+    // Shop
+    Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
 });
 
 Route::middleware('admin')->group(function () {
@@ -119,6 +123,15 @@ Route::middleware('admin')->group(function () {
     Route::delete('/products-delete/{id}', [ProductController::class, 'deleteProduct'])->name('products.delete');
     Route::get('/products-update-view/{id}', [ProductController::class, 'updateView'])->name('products.update.view');
     Route::put('/products-update/{id}', [ProductController::class, 'updateProduct'])->name('products.update');
+
+    //Detail Order
+    Route::get('/detail-orders-list-view', [DetailOrderController::class, 'listDetailOrders'])->name('detail.order.list.view');
+    Route::get('/detail-orders-create-view', [DetailOrderController::class, 'createFormView'])->name('detail.order.create.view');
+    Route::post('/detail-orders-create', [DetailOrderController::class, 'create'])->name('detail.order.create');
+    Route::delete('/detail-orders-delete/{id}', [DetailOrderController::class, 'delete'])->name('detail.order.delete');
+    Route::get('/detail-orders-invoice', [DetailOrderController::class, 'showInvoice'])->name('show.invoice');
+    
+
 });
 
 

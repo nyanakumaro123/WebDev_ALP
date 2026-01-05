@@ -1,61 +1,71 @@
-<nav class="sticky top-0 z-50 bg-gray-900 text-white shadow-lg">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-16">
-            <!-- Brand -->
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <nav class="w-64 bg-gray-900 text-white shadow-lg flex flex-col">
+        <!-- Brand -->
+        <div class="p-4 border-b border-gray-800">
             <a href="/" class="text-xl font-bold text-white hover:text-gray-300 transition-colors">
                 Toko Cahaya Makmur
             </a>
+        </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+        <!-- Mobile Menu Button (only visible on mobile) -->
+        <div class="md:hidden p-4 border-b border-gray-800">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
-
-            <!-- Centered Navigation Links (Desktop) -->
-            <div class="hidden md:flex space-x-6 mx-auto">
-                <a href="{{ route('products.list.view') }}" class="hover:text-gray-300 transition-colors">Products</a>
-                <a href="{{ route('brands.list.view') }}" class="hover:text-gray-300 transition-colors">Brands</a>
-                <a href="{{ route('reviews.list.view') }}" class="hover:text-gray-300 transition-colors">Review</a>
-            </div>
-
-            <!-- Auth Section -->
-            <div class="hidden md:flex items-center">
-                @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="text-white hover:text-gray-300 transition-colors">
-                            Logout
-                        </button>
-                    </form>
-                @endauth
-                {{-- @else
-                    <a href="{{ route('login') }}" class="hover:text-gray-300 transition-colors ml-4">Login</a>
-                    <a href="{{ route('register') }}" class="hover:text-gray-300 transition-colors ml-4">Register</a>
-                --}}
-            </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
-            <div class="flex flex-col space-y-4">
-                <a href="{{ url('/index') }}" class="hover:text-gray-300 transition-colors">Products</a>
+        <!-- Navigation Links -->
+        <div class="flex-grow overflow-y-auto py-4">
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex flex-col space-y-2 px-4">
+                <a href="{{ route('shop') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
+                    Products
+                </a>
+                <a href="{{ route('brands.list.view') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
+                    Brands
+                </a>
+                <a href="{{ route('reviews.list.view') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
+                    Review
+                </a>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden flex flex-col space-y-2 px-4">
+                <a href="{{ url('/index') }}" class="py-2 px-4 hover:bg-gray-800 rounded transition-colors hover:text-gray-300">
+                    Products
+                </a>
                 
                 <!-- Auth Links in Mobile -->
                 @auth
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="text-left text-white hover:text-gray-300 transition-colors">
+                        <button type="submit" class="w-full text-left py-2 px-4 hover:bg-gray-800 rounded transition-colors text-white hover:text-gray-300">
                             Logout
                         </button>
                     </form>
                 @endauth
-                {{-- @else
-                    <a href="{{ route('login') }}" class="hover:text-gray-300 transition-colors">Login</a>
-                    <a href="{{ route('register') }}" class="hover:text-gray-300 transition-colors">Register</a>
-                --}}
             </div>
         </div>
-    </div>
-</nav>
+
+        <!-- Auth Section -->
+        <div class="hidden md:block p-4 border-t border-gray-800">
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left py-2 px-4 hover:bg-gray-800 rounded transition-colors text-white hover:text-gray-300">
+                        Logout
+                    </button>
+                </form>
+            @endauth
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow overflow-auto bg-gray-100">
+        <!-- Content from parent layout will be inserted here -->
+        {{ $slot }}
+    </main>
+</div>

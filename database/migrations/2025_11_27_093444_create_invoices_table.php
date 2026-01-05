@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('InvoiceDate');
             $table->string('CustomerName');
             $table->foreignId('OrderID')->constrained(table: 'detail_orders')->onDelete('cascade');
-            $table->foreignId('UserID')->constrained(table: 'users')->onDelete('cascade');
+            $table->foreignId('CreatedBy')->constrained(table: 'users')->onDelete('cascade');
             $table->foreignId('PaymentID')->constrained(table: 'payments')->onDelete('cascade');
             $table->timestamps();
         });

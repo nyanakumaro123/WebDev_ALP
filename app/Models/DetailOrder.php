@@ -12,14 +12,25 @@ class DetailOrder extends Model
     use HasFactory;
     protected $fillable = [
 
-        "Quantity",
-        "TotalPrice"
-        
+        "OrderQuantity",
+        "TotalPricePerItem",
+        "FinalPrice",
+        "CreatedBy"
     ];
 
-    public function Product():BelongsToMany{
-        return $this->belongsToMany(Product::class);
+    public function Products():BelongsToMany{
+        return $this->belongsToMany(Product::class, 'detail_order_products', 'DetailOrderID', 'ProductID');
     }
+
+    public function Colors():BelongsToMany{
+        return $this->belongsToMany(Color::class, 'detail_order_colors', 'DetailOrderID', 'ColorID');
+    }
+
+    public function Sizes():BelongsToMany{
+        return $this->belongsToMany(Size::class, 'detail_order_sizes', 'DetailOrderID', 'SizeID');
+    }
+
+
 
 
 }

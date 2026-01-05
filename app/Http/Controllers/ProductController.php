@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    // Admin
 
     public function createView()
     {
@@ -149,6 +150,27 @@ class ProductController extends Controller
 
         return redirect()->route('products.list.view');
     }
+
+
+    // User
+    public function shop()
+    {
+        // We use paginate(10) to trigger pagination after 10 items
+        $products = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes', 'Supplier'])->paginate(10);
+        $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::with('SizeCategory')->get();
+        $suppliers = Supplier::all();
+        $productCategories = ProductCategory::all();
+
+        return view('user.Product.shop', compact('products', 'brands', 'colors', 'sizes', 'suppliers', 'productCategories'));
+    }
+
+    //     public function show($id)
+    //     {
+    //         $product = Product::with(['Brand', 'ProductCategory', 'Colors', 'Sizes'])->findOrFail($id);
+    //         return view('products.show', compact('product'));
+    // }
 }
 
     //

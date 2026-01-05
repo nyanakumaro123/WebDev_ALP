@@ -3,7 +3,7 @@
 <div class="container mx-auto px-6 py-10">
     {{-- Header Section: Title and Add Button --}}
     <div class="flex justify-between items-center mb-8 border-b pb-4">
-        <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Brand Directory</h1>
+        <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Supplier Directory</h1>
         {{-- Link to the brand creation view --}}
         <a href="{{ route('suppliers.create.view') }}" 
            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-semibold rounded-lg shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">

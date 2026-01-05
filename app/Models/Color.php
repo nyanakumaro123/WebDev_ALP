@@ -28,6 +28,8 @@ class Color extends Model
         return $this->belongsTo(ColorCategory::class, 'ColorCategoryID');
     }
 
-
+    public function DetailOrders():BelongsToMany{
+        return $this->belongsToMany(DetailOrder::class, 'detail_order_colors', 'ColorID', 'DetailOrderID');
+    }
 
 }

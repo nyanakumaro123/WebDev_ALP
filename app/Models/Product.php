@@ -38,7 +38,7 @@ class Product extends Model
     }
 
     public function DetailOrders():BelongsToMany{
-        return $this->belongsToMany(DetailOrder::class);
+        return $this->belongsToMany(DetailOrder::class, 'detail_order_products', 'ProductID', 'DetailOrderID');
     }
 
     public function Colors():belongsToMany{

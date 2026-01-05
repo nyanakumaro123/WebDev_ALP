@@ -9,7 +9,7 @@ class ReviewController extends Controller
 {
 
     public function createView(){
-        return view('review.createReview');
+        return view('user.review.createReview');
     }
 
     public function store(Request $request){
@@ -19,7 +19,7 @@ class ReviewController extends Controller
         ]);
 
         Review::create([
-            'UserID' => auth()->id(),
+            'UserID' => $request->user()->id,
             'Rating' => $request->Rating,
             'Comment' => $request->Comment,
         ]);
@@ -29,7 +29,7 @@ class ReviewController extends Controller
 
     public function listReview(){
         $reviews = Review::with('User')->get();
-        return view('review.listReview', compact('reviews'));
+        return view('user.review.listReview', compact('reviews'));
     }
     //
 }
