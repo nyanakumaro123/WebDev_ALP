@@ -47,6 +47,7 @@
                     <form action="{{ route('brands.delete', $brand->id) }}" method="POST" class="flex-1"
                           onsubmit="return confirm('Are you sure you want to permanently remove the brand: {{ $brand->brand_name }}? This action cannot be undone.');">
                         @csrf
+                        @method('DELETE')
                         <button type="submit" 
                                 class="w-full inline-flex justify-center items-center py-2 px-3 text-center rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition duration-150 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
