@@ -39,7 +39,7 @@
                             id="SupplierName" 
                             value="{{ old('SupplierName', $supplier->SupplierName) }}"
                             required 
-                            class="block w-full px-4 py-3 border @error('SupplierName') border-red-500 @else border-gray-300 @enderror rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-base transition duration-150"
+                            class="block w-full px-4 py-3 border @error('SupplierName') border-red-500 @else border-gray-300 @enderror rounded-lg shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 text-base transition duration-150"
                         >
                         @error('SupplierName')
                             <p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>
@@ -59,7 +59,7 @@
                             id="CompanyName" 
                             value="{{ old('CompanyName', $supplier->CompanyName) }}"
                             required 
-                            class="block w-full px-4 py-3 border @error('CompanyName') border-red-500 @else border-gray-300 @enderror rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-base transition duration-150"
+                            class="block w-full px-4 py-3 border @error('CompanyName') border-red-500 @else border-gray-300 @enderror rounded-lg shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 text-base transition duration-150"
                         >
                         @error('CompanyName')
                             <p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>
@@ -71,7 +71,7 @@
                 <div class="space-y-3 pt-2">
                     <button
                         type="submit" 
-                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-[1.01]"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-base font-semibold text-white bg-gray-800 hover:bg-black focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-[1.01]"
                     >
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>

@@ -22,7 +22,7 @@
                                     </label>
                                     <input id="ProductName" 
                                            type="text" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductName') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductName') border-red-500 @enderror" 
                                            name="ProductName" 
                                            value="{{ old('ProductName', $product->ProductName) }}" 
                                            required 
@@ -39,7 +39,7 @@
                                     <input id="Price" 
                                            type="number" 
                                            step="0.01" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Price') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('Price') border-red-500 @enderror" 
                                            name="Price" 
                                            value="{{ old('Price', $product->Price) }}" 
                                            required>
@@ -57,7 +57,7 @@
                                     </label>
                                     <input id="ProductQuantity" 
                                            type="number" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductQuantity') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductQuantity') border-red-500 @enderror" 
                                            name="ProductQuantity" 
                                            value="{{ old('ProductQuantity', $product->ProductQuantity) }}" 
                                            required>
@@ -67,11 +67,17 @@
                                 </div>
                                 
                                 <div>
-                                    <label for="ProductCategoryID" class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('Category') }}
-                                    </label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label for="ProductCategoryID" class="block text-sm font-medium text-gray-700">
+                                            {{ __('Category') }}
+                                        </label>
+                                        <a href="{{ route('product.category.create.view') }}" 
+                                            class="text-sm text-blue-600 hover:text-blue-800">
+                                            New Category
+                                        </a>
+                                    </div>
                                     <select id="ProductCategoryID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ProductCategoryID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ProductCategoryID') border-red-500 @enderror" 
                                             name="ProductCategoryID" 
                                             required>
                                         <option value="">Select Category</option>
@@ -90,11 +96,17 @@
                             <!-- Row 3: Brand & Color -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label for="BrandID" class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('Brand') }}
-                                    </label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label for="BrandID" class="block text-sm font-medium text-gray-700">
+                                            {{ __('Brand') }}
+                                        </label>
+                                        <a href="{{ route('brands.create.view') }}" 
+                                            class="text-sm text-blue-600 hover:text-blue-800">
+                                            New Brand
+                                        </a>
+                                    </div>
                                     <select id="BrandID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('BrandID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('BrandID') border-red-500 @enderror" 
                                             name="BrandID" 
                                             required>
                                         <option value="">Select Brand</option>
@@ -110,17 +122,23 @@
                                 </div>
                                 
                                 <div>
-                                    <label for="ColorID" class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('Color') }}
-                                    </label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label for="ColorID" class="block text-sm font-medium text-gray-700">
+                                            {{ __('Color') }}
+                                        </label>
+                                        <a href="{{ route('color.create.view') }}" 
+                                            class="text-sm text-blue-600 hover:text-blue-800">
+                                            New Color
+                                        </a>
+                                    </div>
                                     <select id="ColorID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('ColorID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('ColorID') border-red-500 @enderror" 
                                             name="ColorID" 
                                             required>
                                         <option value="">Select Color</option>
                                         @foreach($colors as $color)
                                             <option value="{{ $color->id }}" {{ in_array($color->id, $product->colors->pluck('id')->toArray()) ? 'selected' : '' }}>
-                                                {{ $color->ColorName }}
+                                                {{ $color->ColorName }} {{ $color->ColorCode }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -133,11 +151,17 @@
                             <!-- Row 4: Supplier & Size -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label for="SupplierID" class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('Supplier') }}
-                                    </label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label for="SupplierID" class="block text-sm font-medium text-gray-700">
+                                            {{ __('Supplier') }}
+                                        </label>
+                                        <a href="{{ route('suppliers.create.view') }}" 
+                                            class="text-sm text-blue-600 hover:text-blue-800">
+                                            New Supplier
+                                        </a>
+                                    </div>
                                     <select id="SupplierID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SupplierID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SupplierID') border-red-500 @enderror" 
                                             name="SupplierID" 
                                             required>
                                         <option value="">Select Supplier</option>
@@ -153,11 +177,17 @@
                                 </div>
                                 
                                 <div>
-                                    <label for="SizeID" class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('Size') }}
-                                    </label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label for="SizeID" class="block text-sm font-medium text-gray-700">
+                                            {{ __('Size') }}
+                                        </label>
+                                        <a href="{{ route('sizes.create.view') }}" 
+                                            class="text-sm text-blue-600 hover:text-blue-800">
+                                            New Size
+                                        </a>
+                                    </div>
                                     <select id="SizeID" 
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeID') border-red-500 @enderror" 
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SizeID') border-red-500 @enderror" 
                                             name="SizeID" 
                                             required>
                                         <option value="">Select Size</option>
@@ -180,7 +210,7 @@
                                 </label>
                                 <input id="Image" 
                                        type="file" 
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('Image') border-red-500 @enderror" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('Image') border-red-500 @enderror" 
                                        name="Image">
                                 @error('Image')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -199,7 +229,7 @@
                             <!-- Form Actions -->
                             <div class="flex justify-end space-x-3">
                                 <button type="submit" 
-                                        class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-6 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ __('Update Product') }}
                                 </button>
                                 <a href="{{ route('products.list.view') }}" 

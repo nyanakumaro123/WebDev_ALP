@@ -77,19 +77,20 @@ class ColorController extends Controller
 
     public function update(Request $request, int $id)
     {
-
         $request->validate([
-            'ColorName' => 'required|string|max:50',
-            'ColorCategoryID' => 'required|integer|exists:color_categories,id',
+            'ColorName'       => 'required|string|max:255',
+            'ColorCode'       => 'required|string|max:7', // For hex codes like #000000
+            'ColorCategoryID' => 'required|exists:color_categories,id',
         ]);
 
         $color = Color::findOrFail($id);
         $color->update([
-            'ColorName' => $request->ColorName,
-            'ColorCategoryID' => $request->ColorCategoryID
+            'ColorName'       => $request->ColorName,
+            'ColorCode'       => $request->ColorCode,
+            'ColorCategoryID' => $request->ColorCategoryID,
         ]);
 
-        return redirect()->route('color.list.view');
+        return redirect()->route('color.list.view')->with('success', 'Color updated successfully.');
     }
 
     public function delete(int $id)

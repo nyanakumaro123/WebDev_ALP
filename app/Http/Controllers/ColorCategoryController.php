@@ -37,19 +37,23 @@ class ColorCategoryController extends Controller
         return redirect()->route('color.list.view');
     }
 
-        public function update(Request $request, int $id){
+        public function update(Request $request, int $id)
+        {
+            $request->validate([
+                'ColorCategoryName' => 'required|string|max:255',
+                'ColorCode'         => 'required|string|max:7', // Validates hex codes like #FFFFFF
+            ]);
 
-        $request->validate([
-            'ColorCategoryName'=>'required|string|max:50',
-        ]);
+            $colorCategory = ColorCategory::findOrFail($id);
+            
+            // Update both the Name and the Code
+            $colorCategory->update([
+                'ColorCategoryName' => $request->ColorCategoryName,
+                'ColorCode'         => $request->ColorCode,
+            ]);
 
-        $colorCategory = ColorCategory::findOrFail($id);
-        $colorCategory->update([
-            'ColorCategoryName' => $request->ColorCategoryName
-        ]);
-
-        return redirect()->route('color.list.view');
-    }
+            return redirect()->route('color.list.view')->with('success', 'Color Category and Code updated successfully');
+        }
 
     public function delete(int $id){
         $colorCategory = ColorCategory::findOrFail($id);

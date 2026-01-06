@@ -121,38 +121,45 @@ class ProductController extends Controller
             'Price' => 'required|numeric|min:0',
             'ProductQuantity' => 'required|integer|min:0',
             'BrandID' => 'required|exists:brands,id',
-            'SupplierID' => 'required|exists:suppliers,id', // Jika Anda masih menggunakan Supplier
+            'SupplierID' => 'required|exists:suppliers,id',
             'ProductCategoryID' => 'required|exists:product_categories,id',
-            'Image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Nullable karena boleh tidak mengganti gambar
+            'Image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            // Tambahkan validasi untuk relasi
+            'ColorID' => 'required|exists:colors,id',
+            'SizeID' => 'required|exists:sizes,id',
         ]);
 
         $product = Product::findOrFail($id);
 
-        // 2. Penanganan Gambar
-        if ($request->file('Image')) {
-            unlink('storage/' . $product->Image);
-            $product->update([
-                'ProductName' => $request->ProductName,
-                'ProductSize' => $request->ProductSize,
-                'ProductColor' => $request->ProductColor,
-                'Price' => $request->Price,
-                'ProductQuantity' => $request->ProductQuantity,
-                'Image' => $request->file('Image')->store('products', 'public'),
-                'BrandID' => $request->BrandID,
-                'SupplierID' => $request->SupplierID,
-                'ProductCategoryID' => $request->ProductCategoryID,
-            ]);
-        } else {
-            $product->update([
-                'ProductName' => $request->ProductName,
-                'ProductSize' => $request->ProductSize,
-                'ProductColor' => $request->ProductColor,
-                'Price' => $request->Price,
-                'ProductQuantity' => $request->ProductQuantity,
-                'BrandID' => $request->BrandID,
-                'ProductCategoryID' => $request->ProductCategoryID,
-            ]);
+        // Siapkan data untuk update tabel 'products'
+        // HAPUS 'ProductSize' dan 'ProductColor' karena kamu pakai tabel relasi
+        $dataToUpdate = [
+            'ProductName' => $request->ProductName,
+            'Price' => $request->Price,
+            'ProductQuantity' => $request->ProductQuantity,
+            'BrandID' => $request->BrandID,
+            'SupplierID' => $request->SupplierID,
+            'ProductCategoryID' => $request->ProductCategoryID,
+        ];
+
+        // 2. Penanganan Gambar (Menggunakan Storage Facade lebih aman)
+        if ($request->hasFile('Image')) {
+            // Cek apakah gambar lama ada, jika ada hapus
+            if ($product->Image && Storage::disk('public')->exists($product->Image)) {
+                Storage::disk('public')->delete($product->Image);
+            }
+            
+            // Upload gambar baru
+            $dataToUpdate['Image'] = $request->file('Image')->store('products', 'public');
         }
+
+        // 3. Update Tabel Produk Utama
+        $product->update($dataToUpdate);
+
+        // 4. PENTING: Update Relasi Warna dan Size (Many-to-Many)
+        // Gunakan sync() untuk mengganti relasi lama dengan yang baru
+        $product->Colors()->sync($request->ColorID);
+        $product->Sizes()->sync($request->SizeID);
 
         return redirect()->route('products.list.view')->with('success', 'Produk berhasil diperbarui!');
     }

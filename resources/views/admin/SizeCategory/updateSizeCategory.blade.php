@@ -22,7 +22,7 @@
                                 <div>
                                     <input id="SizeCategoryName" 
                                            type="text" 
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('SizeCategoryName') border-red-500 @enderror" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 @error('SizeCategoryName') border-red-500 @enderror" 
                                            name="SizeCategoryName" 
                                            value="{{ old('SizeCategoryName', $sizeCategory->SizeCategoryName) }}" 
                                            required 
@@ -40,7 +40,7 @@
                             <!-- Form Actions -->
                             <div class="flex justify-end space-x-3">
                                 <button type="submit" 
-                                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-4 py-2 bg-gray-800 text-white font-medium rounded-md hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                     {{ __('Update Category') }}
                                 </button>
                                 <a href="{{ route('size.category.list.view') }}" 

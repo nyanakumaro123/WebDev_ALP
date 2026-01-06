@@ -10,7 +10,7 @@
 
                     <!-- Card Body -->
                     <div class="p-6">
-                        <form method="POST" action="{{ route('color.category.list.view') }}">
+                        <form method="POST" action="{{ route('color.category.create') }}">
                             @csrf
 
                             <!-- Color Category Name -->

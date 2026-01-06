@@ -137,7 +137,7 @@
                                         <option value="">Select Color</option>
                                         @foreach($colors as $color)
                                             <option value="{{ $color->id }}" {{ old('ColorID') == $color->id ? 'selected' : '' }}>
-                                                {{ $color->ColorName }}
+                                                {{ $color->ColorName }} {{ $color->ColorCode }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -192,7 +192,7 @@
                                         <option value="">Select Size</option>
                                         @foreach($sizes as $size)
                                             <option value="{{ $size->id }}" {{ old('SizeID') == $size->id ? 'selected' : '' }}>
-                                                {{ $size->SizeValue }}
+                                                {{ $size->SizeValue }} {{ $size->SizeCategory->SizeCategoryName }}
                                             </option>
                                         @endforeach
                                     </select>
